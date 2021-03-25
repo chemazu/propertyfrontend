@@ -4,7 +4,7 @@
   "private": true,
   "main": "lib/index",
   "types": "lib/index",
-  "homepage": "https://chemazu.github.io/propertyfrontend",
+  "homepage": "https://chemazu.github.io/propertyfrontend/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
