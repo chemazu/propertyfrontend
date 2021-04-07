@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
-
+import { locationlist, statuslist, pricerangelist, bedslist, bathroomslist, typelist, diameterlist } from '../../../data/select.json';
+import Select2 from 'react-select2-wrapper';
+import classNames from 'classnames';
+import Search from './Search';
 // Banner
 const bannerpost = [
     {
@@ -39,14 +42,23 @@ const bannerpost = [
 class Banner extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            advancesearch: false
+        }
         this.next = this.next.bind(this);
         this.previous = this.previous.bind(this);
+        this.advancetoggle = this.advancetoggle.bind(this);
     }
     next() {
         this.slider.slickNext();
     }
     previous() {
         this.slider.slickPrev();
+    }
+    advancetoggle() {
+        this.setState({
+            advancesearch: !this.state.advancesearch
+        })
     }
     render() {
         const settings = {
@@ -58,6 +70,7 @@ class Banner extends Component {
         }
         return (
             <div className="banner banner-2">
+                
                 <Slider className="banner-slider" ref={c => (this.slider = c)} {...settings}>
                     {bannerpost.map((item, i) => (
                         <div key={i} className="banner-item">
@@ -147,10 +160,12 @@ class Banner extends Component {
                         </div>
                     ))}
                 </Slider>
+
                 <div className="acr-arrows">
                     <i className="slider-prev fas fa-arrow-left slick-arrow" onClick={this.previous} />
                     <i className="slider-next fas fa-arrow-right slick-arrow" onClick={this.next} />
                 </div>
+                
             </div>
         );
     }

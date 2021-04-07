@@ -5,6 +5,7 @@ import Banner from './Banner';
 import Categories from './Categories';
 import Latestblog from './Latestblog';
 import Listingslider from './Listingslider';
+import Search from './Search';
 import Singleagent from './Singleagent';
 import Testimonials from './Testimonials';
 import Toplistings from './Toplistings';
@@ -14,6 +15,7 @@ class Content extends Component {
         return (
             <Fragment>
                 <Banner/>
+                <Search/>
                 <Categories/>
                 <Listingslider/>
                 <Toplistings/>
