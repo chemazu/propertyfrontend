@@ -38,6 +38,32 @@ class Content extends Component {
                             <label>Password</label>
                             <input type="password" className="form-control form-control-light" placeholder="Password" name="password" />
                         </div>
+                        <div className="form-group">
+                            <label>Register as Craftsman</label>
+                            {/* <input type="email" className="form-control form-control-light" placeholder="Email Address" name="email" /> */}
+                            <select name="cars" id="cars" className="form-control form-control-light">
+                            <option value="0">Choose your Trade :</option>
+                                <option value="1"> Architects</option>
+                                <option value="2">Building Engineers and Contractors</option>
+                                <option value="3">Carpentry, Furniture and Wood works</option>
+                                <option value="4">Electrical Engineers and Technicians </option>
+                                <option value="5">Estate Surveyors and Valuers</option>
+                                <option value="6">Roofing Experts.</option>
+                                <option value="7">Information Technology Consultants</option>
+                                <option value="8">Interior Decoration Experts </option>
+                                <option value="9">Landscape Artists</option>
+                                <option value="10">Legal Experts</option>
+                                <option value="11">Logistics and Relocation Experts.</option>
+                                <option value="12">Masonry</option>
+                                <option value="13"> Materials MerchantsO. Painters</option>
+                                <option value="14"> Plaster of Paris and Ceiling finishing</option>
+                                <option value="15"> Plumbers</option>
+                                <option value="16"> Quantity Surveyors</option>
+                                <option value="17">Security Systems Consultants</option>
+                                <option value="18"> Tiles and Floor Experts</option>
+                                <option value="19">Windows and wall Partition Experts</option>
+</select>
+                        </div>
                         <button type="submit" className="btn-custom secondary btn-block">Register</button>
                         <div className="auth-seperator">
                             <span>OR</span>
