@@ -1,21 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { Tab, Nav } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
-import Locationtab from "./Locationtab";
 import axios from "axios";
 
 // Features
 const features = [
-  { id: 1, icon: "bone", title: "Pet Friendly" },
+  { id: 1, icon: "mailbox", title: "Serviced" },
   { id: 2, icon: "chair", title: "Furnished" },
-  { id: 3, icon: "fan", title: "Cooling" },
-  { id: 4, icon: "garage", title: "Parking" },
-  { id: 5, icon: "mailbox", title: "Mailbox" },
-  { id: 6, icon: "eye", title: "City View" },
+  { id: 3, icon: "garage", title: "Parking" },
 ];
 
 function Content(props) {
   const [files, setFiles] = useState([]);
+  const [listing, setListing] = useState({
+    title: "",
+    description: "",
+    location: "",
+    price: "",
+    status: "",
+    type: "",
+    area: "",
+    address: "",
+    beds: "",
+    toilets: "",
+    baths: "",
+    more: "",
+  });
+
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop: (acceptedFiles) => {
@@ -26,11 +37,12 @@ function Content(props) {
           })
         )
       );
+      console.log(files, "here");
     },
   });
 
   const thumbs = files.map((file) => (
-    <div className="thumb" key={file.name}>
+    <div className="thumb">
       <div className="thumbInner">
         <img src={file.preview} alt="img" />
       </div>
@@ -46,31 +58,11 @@ function Content(props) {
   );
 
   //MY CODE
-  const [listing, setListing] = useState({
-    description: "",
-    title: "",
-    location: "",
-    price: "",
-    status: "",
-    category: "",
-    type: "",
-    area: "",
-    address: "",
-    price: "",
-    bedrooms: "",
-    toilets: "",
-    bathrooms: "",
-    parking: "",
-    totalArea: "",
-    furnished: "",
-    image1: "",
-    image2: "",
-    image3: "",
-    more: "",
-  });
+
   function handleChange(e) {
     const { name, value } = e.target;
     setListing({ ...listing, [name]: value });
+    console.log(listing);
   }
   async function handleSubmit(e) {
     e.preventDefault();
@@ -84,19 +76,13 @@ function Content(props) {
     location,
     price,
     status,
-    category,
     type,
     area,
     address,
-    bedrooms,
+    beds,
+    baths,
     toilets,
-    bathrooms,
-    parking,
-    totalArea,
-    furnished,
-    image1,
-    image2,
-    image3,
+
     more,
   } = listing;
   return (
@@ -117,19 +103,15 @@ function Content(props) {
                     <span>02</span> Gallery
                   </Nav.Link>
                 </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey="tab3">
-                    <span>03</span> Location
-                  </Nav.Link>
-                </Nav.Item>
+
                 <Nav.Item>
                   <Nav.Link eventKey="tab4">
-                    <span>04</span> Features
+                    <span>03</span> Features
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link eventKey="tab5">
-                    <span>05</span> Details
+                    <span>04</span> Additional Details
                   </Nav.Link>
                 </Nav.Item>
               </Nav>
@@ -141,17 +123,6 @@ function Content(props) {
                 <Tab.Content className="m-0">
                   <Tab.Pane eventKey="tab1">
                     <div className="row">
-                      <div className="col-md-12 form-group">
-                        <label>Property Description</label>
-                        <textarea
-                          rows={4}
-                          className="form-control"
-                          placeholder="Property Description"
-                          name="description"
-                          value={description}
-                          onChange={handleChange}
-                        />
-                      </div>
                       <div className="col-md-6 form-group">
                         <label>Property Name</label>
                         <input
@@ -198,29 +169,7 @@ function Content(props) {
                           <option value="Duplex">Duplex</option>
                         </select>
                       </div>
-                      <div className="col-md-6 form-group">
-                        <label>Property Price</label>
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <span className="input-group-text">$</span>
-                          </div>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="price"
-                            value={price}
-                            onChange={handleChange}
-                            placeholder="Property Price"
-                          />
-                        </div>
-                      </div>
-                      {/* <div className="col-md-6">
-                        <label>Rental Period</label>
-                        <select className="form-control" name="period">
-                          <option value="Monthly">Monthly</option>
-                          <option value="Yearly">Yearly</option>
-                        </select>
-                      </div> */}
+
                       <div className="col-md-6 form-group">
                         <label>Property Space (Sqft)</label>
                         <input
@@ -232,7 +181,7 @@ function Content(props) {
                           onChange={handleChange}
                         />
                       </div>
-                      <div className="col-md-12 form-group">
+                      <div className="col-md-6 form-group">
                         <label>Location</label>
                         <input
                           type="text"
@@ -243,16 +192,43 @@ function Content(props) {
                           onChange={handleChange}
                         />
                       </div>
-                      <div className="col-md-12 form-group">
-                        <label>Location</label>
+                      <div className="col-md-6 form-group">
+                        <label>Property Address</label>
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Location"
-                          name="location"
-                          value={location}
+                          placeholder="Property Address"
+                          name="address"
+                          value={address}
                           onChange={handleChange}
                         />
+                      </div>
+                      <div className="col-md-12 form-group">
+                        <label>Property Description</label>
+                        <textarea
+                          rows={4}
+                          className="form-control"
+                          placeholder="Property Description"
+                          name="description"
+                          value={description}
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div className="col-md-6 form-group">
+                        <label>Property Price</label>
+                        <div className="input-group">
+                          <div className="input-group-prepend">
+                            <span className="input-group-text">₦</span>
+                          </div>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="price"
+                            value={price}
+                            onChange={handleChange}
+                            placeholder="Property Price"
+                          />
+                        </div>
                       </div>
                     </div>
                   </Tab.Pane>
@@ -297,9 +273,7 @@ function Content(props) {
                       </span>
                     </div>
                   </Tab.Pane>
-                  <Tab.Pane eventKey="tab3">
-                    <Locationtab />
-                  </Tab.Pane>
+                  <Tab.Pane eventKey="tab3"></Tab.Pane>
                   <Tab.Pane eventKey="tab4">
                     <div className="row">
                       {features.map((item, i) => (
@@ -307,7 +281,9 @@ function Content(props) {
                           <label className="acr-listing-feature">
                             <input
                               type="checkbox"
-                              name={"feature" + item.id + ""}
+                              name={item.title}
+                              value={item.id}
+                              onChange={handleChange}
                             />
                             <i className="acr-feature-check fas fa-check" />
                             <i
@@ -325,24 +301,18 @@ function Content(props) {
                   </Tab.Pane>
                   <Tab.Pane eventKey="tab5">
                     <div className="row">
-                      <div className="col-md-6 form-group">
-                        <label>Property ID</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Property ID"
-                          name="id"
-                        />
-                      </div>
-                      <div className="col-md-6 form-group">
+                      {/* <div className="col-md-6 form-group">
                         <label>Beds</label>
                         <input
                           type="text"
                           className="form-control"
                           placeholder="Number of Beds"
                           name="beds"
+                          value={beds}
+                          onChange={handleChange}
                         />
-                      </div>
+                      </div> */}
+
                       <div className="col-md-6 form-group">
                         <label>Bathrooms</label>
                         <input
@@ -350,6 +320,30 @@ function Content(props) {
                           className="form-control"
                           placeholder="Number of Bathrooms"
                           name="baths"
+                          value={baths}
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div className="col-md-6 form-group">
+                        <label>Beds</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Number of Bathrooms"
+                          name="beds"
+                          value={beds}
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div className="col-md-6 form-group">
+                        <label>Toilets</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Number of Bathrooms"
+                          name="toilets"
+                          value={toilets}
+                          onChange={handleChange}
                         />
                       </div>
                       <div className="col-md-6 form-group">
@@ -377,6 +371,17 @@ function Content(props) {
                           className="form-control"
                           placeholder="Property Neighborhood"
                           name="neighborhood"
+                        />
+                      </div>
+                      <div className="col-md-12 form-group">
+                        <label>Additional Information</label>
+                        <textarea
+                          rows={4}
+                          className="form-control"
+                          placeholder="Additional Information"
+                          name="more"
+                          value={more}
+                          onChange={handleChange}
                         />
                       </div>
                     </div>
