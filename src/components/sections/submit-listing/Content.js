@@ -12,6 +12,7 @@ const features = [
 
 function Content(props) {
   const [files, setFiles] = useState([]);
+  const [images, setImages] = useState([]);
   const [listing, setListing] = useState({
     title: "",
     description: "",

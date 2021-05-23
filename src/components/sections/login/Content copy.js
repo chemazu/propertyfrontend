@@ -23,13 +23,7 @@ const images = [
 class Content extends Component {
   constructor() {
     super();
-    this.state = {
-      name: "",
-      email: "",
-      password: "",
-      accountType: "",
-      craft: "",
-    };
+    this.state = { email: "", password: "" };
   }
   handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,12 +33,13 @@ class Content extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const data = this.state;
-    fetch("http://localhost:5000/register", {
+    fetch("http://localhost:5000/login", {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+
+      body: data,
     })
       .then((response) => response.json())
       .then((data) => {
@@ -63,42 +58,32 @@ class Content extends Component {
       dots: true,
       dotsClass: "d-flex slick-dots",
     };
-    const { name, email, password, accountType, craft } = this.state;
+    const { email, password } = this.state;
+
     return (
       <div className="acr-auth-container">
         <div className="acr-auth-content">
           <form onSubmit={this.handleSubmit}>
             <div className="auth-text">
-              <h3>Create A PropertyLens Account</h3>
+              <h3>Log Into PropertyLens</h3>
               <p>
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry's
               </p>
             </div>
             <div className="form-group">
-              <label>Name</label>
+              <label>Email</label>
               <input
                 type="text"
                 className="form-control form-control-light"
-                placeholder="Name"
-                name="name"
-                value={name}
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <label>Email Address </label>
-              <input
-                type="email"
-                className="form-control form-control-light"
-                placeholder="Email Address"
+                placeholder="Email"
                 name="email"
                 value={email}
                 onChange={this.handleChange}
               />
             </div>
             <div className="form-group">
-              <label>Password </label>
+              <label>Password</label>
               <input
                 type="password"
                 className="form-control form-control-light"
@@ -109,72 +94,26 @@ class Content extends Component {
               />
             </div>
             <div className="form-group">
-              <label>Select Account Type</label>
-              <select
-                name="accountType"
-                // id="cars"
-                className="form-control form-control-light"
-                value={accountType}
-                onChange={this.handleChange}
-              >
-                <option value="0">Account Type :</option>
-                <option value="1">Craftsmen</option>
-                <option value="2">Agent</option>
-                <option value="3">Property Seeker</option>
-                <option value="4">Premium</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label>Select Crafts</label>
-              <p>For Craftsmen</p>
-              <select
-                name="craft"
-                id="cars"
-                className="form-control form-control-light"
-                value={craft}
-                onChange={this.handleChange}
-              >
-                <option value="0">Choose your Trade :</option>
-                <option value="1"> Architects</option>
-                <option value="2">Building Engineers and Contractors</option>
-                <option value="3">Carpentry, Furniture and Wood works</option>
-                <option value="4">Electrical Engineers and Technicians </option>
-                <option value="5">Estate Surveyors and Valuers</option>
-                <option value="6">Roofing Experts.</option>
-                <option value="7">Information Technology Consultants</option>
-                <option value="8">Interior Decoration Experts </option>
-                <option value="9">Landscape Artists</option>
-                <option value="10">Legal Experts</option>
-                <option value="11">Logistics and Relocation Experts.</option>
-                <option value="12">Masonry</option>
-                <option value="13"> Materials MerchantsO. Painters</option>
-                <option value="14">
-                  {" "}
-                  Plaster of Paris and Ceiling finishing
-                </option>
-                <option value="15"> Plumbers</option>
-                <option value="16"> Quantity Surveyors</option>
-                <option value="17">Security Systems Consultants</option>
-                <option value="18"> Tiles and Floor Experts</option>
-                <option value="19">Windows and wall Partition Experts</option>
-              </select>
+              <Link to="#" className="forgot-password">
+                Forgot Password?
+              </Link>
             </div>
             <button type="submit" className="btn-custom secondary btn-block">
-              <Link to="/blog-list">Register</Link>
+              Login
             </button>
             <div className="auth-seperator">
               <span>OR</span>
             </div>
-            {/* <div className="social-login">
+            <div className="social-login">
               <button type="button" className="acr-social-login facebook">
                 <i className="fab fa-facebook-f" /> Continue with Facebook{" "}
               </button>
               <button type="button" className="acr-social-login google">
                 <i className="fab fa-google" /> Continue with Google
               </button>
-            </div> */}
+            </div>
             <p className="text-center mb-0">
-              Already have an account? <Link to="/login">Login</Link>{" "}
+              Don't have an account? <Link to="/register">Create One</Link>{" "}
             </p>
           </form>
         </div>
