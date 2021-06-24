@@ -88,6 +88,9 @@ class Menu extends Component {
               </li>
             </ul>
           </li>
+          <li className="menu-item menu-item-has-children">
+            <Link to="/profile">Profile</Link>
+          </li>
         </ul>
       </Fragment>
     );
