@@ -13,9 +13,6 @@ const features = [
 function Content(props) {
   const [files, setFiles] = useState([]);
   const [photos, setPhotos] = useState([]);
-  const [imageWild, setImageWild] = useState([]);
-  const [orang, setOrang] = useState([]);
-
   const [newFile, setNewFile] = useState();
   const [newFileName, setNewFileName] = useState("");
   const [listing, setListing] = useState({
@@ -38,19 +35,11 @@ function Content(props) {
     images: [],
     more: "",
   });
-  const { images } = listing;
-  // const saveFile = (e) => {
-  //   setNewFile(e.target.files[0]);
-  //   setNewFileName(e.target.files[0].name);
-  // };
+
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop: (acceptedFiles) => {
-      // setPhotos(acceptedFiles);
       setPhotos(acceptedFiles);
-      // acceptedFiles.map(singleFile=imageWild,singleFile})
-      // e.target.files[0]
-      console.log(acceptedFiles);
       setFiles(
         acceptedFiles.map((file) =>
           Object.assign(file, {
@@ -82,32 +71,13 @@ function Content(props) {
   function handleChange(e) {
     const { name, value } = e.target;
     setListing({ ...listing, [name]: value });
-    // console.log(listing);
   }
-  const saveFile = (e) => {
-    setNewFile(e.target.files[0]);
-    setNewFileName(e.target.files[0].name);
-  };
-  const uploadFile = async (e) => {
-    const formData = new FormData();
-    formData.append("newfile", newFile);
-    formData.append("newfileName", newFileName);
-    try {
-      const res = await axios.post("http://localhost:5000/listing/upload", {
-        formData,
-        listing,
-      });
-      console.log(res);
-    } catch (ex) {
-      console.log(ex);
-    }
-  };
+
   async function handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData();
     for (let i = 0; i < photos.length; i++) {
       formData.append(`file`, photos[i]);
-      images.push(photos[i].name.split(" ").join("_"));
     }
     formData.append("listing", JSON.stringify(listing));
     let res = await axios.post("http://localhost:5000/listing/add", formData);
@@ -171,19 +141,6 @@ function Content(props) {
                 <Tab.Content className="m-0">
                   <Tab.Pane eventKey="tab1">
                     <div className="row">
-                      <div className="col-md-6 form-group">
-                        <label>upload Image</label>
-                        {/* <input
-                          type="file"
-                          className="form-control"
-                          placeholder="Property Name"
-                          name="title"
-                          value={newImage}
-                          onChange={handleChange}
-                        /> */}
-                        <input type="file" onChange={saveFile} />
-                        <button onClick={uploadFile}>Upload</button>
-                      </div>
                       <div className="col-md-6 form-group">
                         <label>Property Name</label>
                         <input
