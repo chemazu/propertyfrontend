@@ -5,32 +5,52 @@ import axios from "axios";
 
 // Features
 const features = [
-  { id: 1, icon: "mailbox", title: "Serviced" },
-  { id: 2, icon: "chair", title: "Furnished" },
-  { id: 3, icon: "garage", title: "Parking" },
+  { id: 1, icon: "mailbox", title: "serviced" },
+  { id: 2, icon: "chair", title: "furnished" },
+  { id: 3, icon: "garage", title: "parking" },
 ];
 
 function Content(props) {
   const [files, setFiles] = useState([]);
-  const [images, setImages] = useState([]);
+  const [photos, setPhotos] = useState([]);
+  const [imageWild, setImageWild] = useState([]);
+  const [orang, setOrang] = useState([]);
+
+  const [newFile, setNewFile] = useState();
+  const [newFileName, setNewFileName] = useState("");
   const [listing, setListing] = useState({
+    userId: "",
     title: "",
-    description: "",
     location: "",
-    price: "",
+    description: "",
     status: "",
+    category: "",
     type: "",
     area: "",
     address: "",
-    beds: "",
+    price: "",
+    bedrooms: "",
     toilets: "",
-    baths: "",
+    bathrooms: "",
+    parking: "",
+    furnished: "",
+    serviced: "",
+    images: [],
     more: "",
   });
-
+  const { images } = listing;
+  // const saveFile = (e) => {
+  //   setNewFile(e.target.files[0]);
+  //   setNewFileName(e.target.files[0].name);
+  // };
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop: (acceptedFiles) => {
+      // setPhotos(acceptedFiles);
+      setPhotos(acceptedFiles);
+      // acceptedFiles.map(singleFile=imageWild,singleFile})
+      // e.target.files[0]
+      console.log(acceptedFiles);
       setFiles(
         acceptedFiles.map((file) =>
           Object.assign(file, {
@@ -38,12 +58,11 @@ function Content(props) {
           })
         )
       );
-      console.log(files, "here");
     },
   });
 
   const thumbs = files.map((file) => (
-    <div className="thumb">
+    <div className="thumb" key={file.name}>
       <div className="thumbInner">
         <img src={file.preview} alt="img" />
       </div>
@@ -63,27 +82,55 @@ function Content(props) {
   function handleChange(e) {
     const { name, value } = e.target;
     setListing({ ...listing, [name]: value });
-    console.log(listing);
+    // console.log(listing);
   }
+  const saveFile = (e) => {
+    setNewFile(e.target.files[0]);
+    setNewFileName(e.target.files[0].name);
+  };
+  const uploadFile = async (e) => {
+    const formData = new FormData();
+    formData.append("newfile", newFile);
+    formData.append("newfileName", newFileName);
+    try {
+      const res = await axios.post("http://localhost:5000/listing/upload", {
+        formData,
+        listing,
+      });
+      console.log(res);
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
   async function handleSubmit(e) {
     e.preventDefault();
-    let res = await axios.post("http://localhost:5000/submitProperty", listing);
-    let data = res.data;
+    const formData = new FormData();
+    for (let i = 0; i < photos.length; i++) {
+      formData.append(`file`, photos[i]);
+      images.push(photos[i].name.split(" ").join("_"));
+    }
+    formData.append("listing", JSON.stringify(listing));
+    let res = await axios.post("http://localhost:5000/listing/add", formData);
+    let data = await res.data;
     console.log(data);
   }
   const {
+    userId,
     title,
-    description,
     location,
-    price,
+    description,
     status,
-    type,
+    category,
     area,
+    type,
     address,
-    beds,
-    baths,
+    price,
+    bedrooms,
     toilets,
-
+    bathrooms,
+    parking,
+    furnished,
+    serviced,
     more,
   } = listing;
   return (
@@ -125,6 +172,19 @@ function Content(props) {
                   <Tab.Pane eventKey="tab1">
                     <div className="row">
                       <div className="col-md-6 form-group">
+                        <label>upload Image</label>
+                        {/* <input
+                          type="file"
+                          className="form-control"
+                          placeholder="Property Name"
+                          name="title"
+                          value={newImage}
+                          onChange={handleChange}
+                        /> */}
+                        <input type="file" onChange={saveFile} />
+                        <button onClick={uploadFile}>Upload</button>
+                      </div>
+                      <div className="col-md-6 form-group">
                         <label>Property Name</label>
                         <input
                           type="text"
@@ -143,6 +203,10 @@ function Content(props) {
                           value={status}
                           onChange={handleChange}
                         >
+                          <option value="For Rent">
+                            Select Property Status
+                          </option>
+
                           <option value="For Rent">For Rent</option>
                           <option value="Featured">Featured</option>
                           <option value="For Sale">For Sale</option>
@@ -154,6 +218,24 @@ function Content(props) {
                           <option value="Special Offer">Special Offer</option>
                         </select>
                       </div>
+                      <div className="col-md-6 form-group">
+                        <label>Property Category</label>
+                        <select
+                          className="form-control"
+                          name="category"
+                          value={category}
+                          onChange={handleChange}
+                        >
+                          <option>Select Category</option>
+                          <option value="Residential">Residential</option>
+
+                          <option value="Commercial">Commercial</option>
+                          <option value="Villas">Villas</option>
+                          <option value="Apartments">Apartments</option>
+                          <option value="Beach House">Beach House</option>
+                          <option value="Duplex">Duplex</option>
+                        </select>
+                      </div>
                       <div className="col-md-6">
                         <label>Property Type</label>
                         <select
@@ -162,6 +244,8 @@ function Content(props) {
                           value={type}
                           onChange={handleChange}
                         >
+                          <option>Select property type</option>
+
                           <option value="House">House</option>
                           <option value="Apartment">Apartment</option>
                           <option value="Condo">Condo</option>
@@ -193,6 +277,7 @@ function Content(props) {
                           onChange={handleChange}
                         />
                       </div>
+
                       <div className="col-md-6 form-group">
                         <label>Property Address</label>
                         <input
@@ -201,17 +286,6 @@ function Content(props) {
                           placeholder="Property Address"
                           name="address"
                           value={address}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <div className="col-md-12 form-group">
-                        <label>Property Description</label>
-                        <textarea
-                          rows={4}
-                          className="form-control"
-                          placeholder="Property Description"
-                          name="description"
-                          value={description}
                           onChange={handleChange}
                         />
                       </div>
@@ -231,10 +305,21 @@ function Content(props) {
                           />
                         </div>
                       </div>
+                      <div className="col-md-12 form-group">
+                        <label>Property Description</label>
+                        <textarea
+                          rows={4}
+                          className="form-control"
+                          placeholder="Property Description"
+                          name="description"
+                          value={description}
+                          onChange={handleChange}
+                        />
+                      </div>
                     </div>
                   </Tab.Pane>
                   <Tab.Pane eventKey="tab2">
-                    <div className="form-group">
+                    {/* <div className="form-group">
                       <label>Property Thumbnail</label>
                       <div className="custom-file">
                         <input
@@ -249,7 +334,7 @@ function Content(props) {
                           Choose file
                         </label>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="form-group">
                       <label>Property Gallery</label>
                       <div {...getRootProps({ className: "dropzone" })}>
@@ -320,8 +405,8 @@ function Content(props) {
                           type="text"
                           className="form-control"
                           placeholder="Number of Bathrooms"
-                          name="baths"
-                          value={baths}
+                          name="bathrooms"
+                          value={bathrooms}
                           onChange={handleChange}
                         />
                       </div>
@@ -331,8 +416,8 @@ function Content(props) {
                           type="text"
                           className="form-control"
                           placeholder="Number of Bathrooms"
-                          name="beds"
-                          value={beds}
+                          name="bedrooms"
+                          value={bedrooms}
                           onChange={handleChange}
                         />
                       </div>
@@ -365,15 +450,7 @@ function Content(props) {
                           name="built"
                         />
                       </div>
-                      <div className="col-md-6 form-group">
-                        <label>Neighborhood</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Property Neighborhood"
-                          name="neighborhood"
-                        />
-                      </div>
+
                       <div className="col-md-12 form-group">
                         <label>Additional Information</label>
                         <textarea
