@@ -1,35 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-
-import Login from "../login/Content";
 
 class Content extends Component {
-  constructor() {
-    super();
-    this.state = {
-      token: null,
-      userInfo: "",
-    };
-  }
-  async componentWillMount() {
-    const token = JSON.parse(localStorage.getItem("authtoken")) || null;
-    this.setState({ token });
-    let res = await axios.get(`/user/${token.userId}`, {
-      headers: { Authorization: `Bearer ${token.token}` },
-    });
-    let data = await res.data;
-    const userInfo = data.data;
-    localStorage.setItem("loggedInUser", JSON.stringify(userInfo));
-    this.setState({ userInfo });
-  }
-  handleLogout = () => {
-    console.log("logged out");
-    localStorage.clear();
-    console.log(localStorage);
-  };
   render() {
-    const { name, email, craft } = this.state.userInfo;
     return (
       <div className="section">
         <div className="container">
@@ -56,7 +29,7 @@ class Content extends Component {
                   </li>
                   <li>
                     {" "}
-                    <Link className="logout" to="/" onClick={this.handleLogout}>
+                    <Link className="logout" to="/">
                       <i className="flaticon-shut-down-button" /> Logout
                     </Link>{" "}
                   </li>
@@ -65,7 +38,7 @@ class Content extends Component {
             </div>
             <div className="col-lg-8">
               <div className="acr-welcome-message">
-                <h3>Welcome Back {name}</h3>
+                <h3>Welcome Back, Paul Chukwuebuka</h3>
                 <p>
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry's
@@ -75,7 +48,7 @@ class Content extends Component {
               <form>
                 <div className="row">
                   <div className="col-lg-6 form-group">
-                    <label>{name}</label>
+                    <label>Full Name</label>
                     <input
                       type="text"
                       className="form-control"

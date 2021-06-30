@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+
+import { Link, useHistory } from "react-router-dom";
 import Slider from "react-slick";
+import axios from "axios";
+const history = useHistory();
 
 const images = [
   {
@@ -28,26 +31,16 @@ class Content extends Component {
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ ...this.state, [name]: value });
+    console.log(this.state);
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
-    const data = this.state;
-    fetch("http://localhost:5000/login", {
-      method: "POST", // or 'PUT'
-      headers: {
-        "Content-Type": "application/json",
-      },
-
-      body: data,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    let res = await axios.post("http://localhost:5000/login", this.state);
+    let data = await res.data;
+    console.log(data);
+    if (data.success) {
+    }
   };
   render() {
     const settings = {

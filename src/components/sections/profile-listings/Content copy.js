@@ -27,14 +27,9 @@ class Content extends Component {
     const userListings = listingData.data;
     localStorage.setItem("userListing", JSON.stringify(userListings));
     this.setState({ userListings });
-    console.log(this.state.userListings);
-  }
-  componentDidMount() {
-    console.log("mount", this.state, "local", localStorage);
+    console.log(this.state);
   }
   render() {
-    let listings = this.state.userListings || listing;
-    console.log(listings);
     return (
       <div className="section">
         <div className="container">
@@ -69,12 +64,7 @@ class Content extends Component {
             </div>
             <div className="col-lg-8">
               {/* Listing Start */}
-              <p>TEXT</p>
-              {listings.map((item) => (
-                <p>{item.title}</p>
-              ))}
-
-              {/* {listing.slice(0, 4).map((item, i) => (
+              {listing.slice(0, 4).map((item, i) => (
                 <div key={i} className="listing listing-list">
                   <div className="listing-thumbnail">
                     <Link to="/listing-details-v1">
@@ -220,7 +210,7 @@ class Content extends Component {
                   </div>
                 </div>
               ))}
-              Listing End */}
+              {/* Listing End */}
             </div>
           </div>
         </div>

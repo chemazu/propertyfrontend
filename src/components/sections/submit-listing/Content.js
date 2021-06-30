@@ -9,14 +9,13 @@ const features = [
   { id: 2, icon: "chair", title: "furnished" },
   { id: 3, icon: "garage", title: "parking" },
 ];
-
+const userInfo = JSON.parse(localStorage.getItem("loggedInUser"));
+console.log(userInfo);
 function Content(props) {
   const [files, setFiles] = useState([]);
   const [photos, setPhotos] = useState([]);
-  const [newFile, setNewFile] = useState();
-  const [newFileName, setNewFileName] = useState("");
   const [listing, setListing] = useState({
-    userId: "",
+    userId: userInfo._id,
     title: "",
     location: "",
     description: "",
@@ -35,7 +34,7 @@ function Content(props) {
     images: [],
     more: "",
   });
-
+  console.log(localStorage);
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop: (acceptedFiles) => {
@@ -80,7 +79,7 @@ function Content(props) {
       formData.append(`file`, photos[i]);
     }
     formData.append("listing", JSON.stringify(listing));
-    let res = await axios.post("http://localhost:5000/listing/add", formData);
+    let res = await axios.post("/listing/add", formData);
     let data = await res.data;
     console.log(data);
   }
@@ -98,9 +97,6 @@ function Content(props) {
     bedrooms,
     toilets,
     bathrooms,
-    parking,
-    furnished,
-    serviced,
     more,
   } = listing;
   return (

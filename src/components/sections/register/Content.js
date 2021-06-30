@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
+import axios from "axios";
 
 const images = [
   {
@@ -36,23 +37,11 @@ class Content extends Component {
     this.setState({ ...this.state, [name]: value });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
-    const data = this.state;
-    fetch("http://localhost:5000/register", {
-      method: "POST", // or 'PUT'
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    let res = await axios.post("/register", this.state);
+    let data = await res.data;
+    console.log(data);
   };
   render() {
     const settings = {
@@ -160,7 +149,7 @@ class Content extends Component {
               </select>
             </div>
             <button type="submit" className="btn-custom secondary btn-block">
-              <Link to="/blog-list">Register</Link>
+              <Link>Register</Link>
             </button>
             <div className="auth-seperator">
               <span>OR</span>
