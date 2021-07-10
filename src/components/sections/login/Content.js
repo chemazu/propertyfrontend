@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 export default function Login() {
   const history = useHistory();
+  const [err, setErr] = useState(false);
   const [auth, setAuth] = useState({ email: "", password: "" });
   const { email, password } = auth;
   function handleChange(e) {
@@ -14,10 +15,12 @@ export default function Login() {
     e.preventDefault();
     let res = await axios.post("http://localhost:5000/login", auth);
     let data = await res.data;
-    console.log("jg", data);
     localStorage.setItem("authtoken", JSON.stringify(data));
     if (data.success) {
+      console.log("sucess");
       history.push("/profile");
+    } else {
+      console.log("error");
     }
   }
   return (

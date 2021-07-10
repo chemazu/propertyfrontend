@@ -1,0 +1,22 @@
+[
+  {
+    "_id": "60dc24157524f91c186aec79",
+    "images": [
+      "356d750879d65fa237f90eb10d6e712eWhatsApp_Image_2021-06-16_at_15.52.15_(3).jpeg",
+      "a84a46e56ef7b6a763d94407a917820bWhatsApp_Image_2021-06-16_at_15.52.15_(2)_-_Copy.jpeg"
+    ],
+    "userId": "60d98fafff49602c48f50996",
+    "title": "notPublisher",
+    "location": "test",
+    "description": "Test",
+    "status": "For Rent",
+    "type": "House",
+    "area": "test",
+    "address": "test",
+    "price": "test",
+    "bedrooms": "test",
+    "toilets": "trest",
+    "bathrooms": "test",
+    "parking": "3"
+  }
+]

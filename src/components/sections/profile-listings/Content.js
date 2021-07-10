@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import listing from "../../../data/listings.json";
+import listing from "../../../data/listingsChemazu.json";
 import { OverlayTrigger, Tooltip, Dropdown, NavLink } from "react-bootstrap";
 import axios from "axios";
 
@@ -8,29 +8,36 @@ const gallerytip = <Tooltip>Gallery</Tooltip>;
 const bedstip = <Tooltip>Beds</Tooltip>;
 const bathstip = <Tooltip>Bathrooms</Tooltip>;
 const areatip = <Tooltip>Square Feet</Tooltip>;
+const token = JSON.parse(localStorage.getItem("authtoken")) || null;
 
 class Content extends Component {
   constructor() {
     super();
     this.state = {
-      token: null,
       userListings: "",
     };
   }
+  // async componentWillMount() {
+  //   let listingRes = await axios.get(`/listing/listings/${token.userId}`, {
+  //     headers: { Authorization: `Bearer ${token.token}` },
+  //   });
+  //   let listingData = await listingRes.data;
+  //   const userListings = listingData.data;
+  //   localStorage.setItem("userListing", JSON.stringify(userListings));
+  //   this.setState({ userListings });
+  //   console.log(this.state.userListings);
+  // }
+  // componentDidMount() {
+  //   console.log("mount", this.state, "local", localStorage);
+  // }
   async componentWillMount() {
-    const token = JSON.parse(localStorage.getItem("authtoken")) || null;
-    this.setState({ token });
-    let listingRes = await axios.get(`/listing/listings/${token.userId}`, {
+    console.log(token.token);
+    let res = await axios.get(`/listing/listings/${token.userId}`, {
       headers: { Authorization: `Bearer ${token.token}` },
     });
-    let listingData = await listingRes.data;
-    const userListings = listingData.data;
-    localStorage.setItem("userListing", JSON.stringify(userListings));
-    this.setState({ userListings });
-    console.log(this.state.userListings);
-  }
-  componentDidMount() {
-    console.log("mount", this.state, "local", localStorage);
+    const listingData = await res.data;
+    // console.log(listingData.data);
+    this.setState({ userListings: listingData.data });
   }
   render() {
     let listings = this.state.userListings || listing;
@@ -69,21 +76,23 @@ class Content extends Component {
             </div>
             <div className="col-lg-8">
               {/* Listing Start */}
-              <p>TEXT</p>
-              {listings.map((item) => (
-                <p>{item.title}</p>
-              ))}
-
-              {/* {listing.slice(0, 4).map((item, i) => (
+              {/* {listings.map((item) => (
+                <div>
+                  {" "}
+                  <p>{item.title}</p>
+                  <img src={`/uploads/${item.images[1]}`}></img>
+                </div>
+              ))} */}
+              {listings.map((item, i) => (
                 <div key={i} className="listing listing-list">
                   <div className="listing-thumbnail">
                     <Link to="/listing-details-v1">
                       <img
-                        src={process.env.PUBLIC_URL + "/" + item.listimg}
+                        src={`/uploads/${item.images[1]}`}
                         alt="listing"
-                      />
+                      ></img>
                     </Link>
-                    <div className="listing-badges">
+                    {/* <div className="listing-badges">
                       {item.star === true ? (
                         <span className="listing-badge featured">
                           {" "}
@@ -92,13 +101,13 @@ class Content extends Component {
                       ) : (
                         ""
                       )}
-                      {item.sale === true ? (
-                        <span className="listing-badge sale">On Sale</span>
+                      {item.status === "true" ? (
+                        <span className="listing-badge sale">For Sale</span>
                       ) : (
                         ""
                       )}
                       {item.pending === true ? (
-                        <span className="listing-badge pending"> Pending</span>
+                        <span className="listing-badge pending"> For Rent</span>
                       ) : (
                         ""
                       )}
@@ -107,8 +116,8 @@ class Content extends Component {
                       ) : (
                         ""
                       )}
-                    </div>
-                    <div className="listing-controls">
+                    </div> */}
+                    {/* <div className="listing-controls">
                       <Link to="#" className="favorite">
                         <i className="far fa-heart" />
                       </Link>
@@ -118,10 +127,10 @@ class Content extends Component {
                       <Link to="#" className="edit">
                         <i className="fas fa-edit" />
                       </Link>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="listing-body">
-                    <div className="listing-author">
+                    {/* <div className="listing-author">
                       <img
                         src={process.env.PUBLIC_URL + "/" + item.authorimg}
                         alt="author"
@@ -163,7 +172,7 @@ class Content extends Component {
                           </ul>
                         </Dropdown.Menu>
                       </Dropdown>
-                    </div>
+                    </div> */}
                     <h5 className="listing-title">
                       {" "}
                       <Link to="/listing-details-v1" title={item.title}>
@@ -171,10 +180,9 @@ class Content extends Component {
                       </Link>{" "}
                     </h5>
                     <span className="listing-price">
-                      {new Intl.NumberFormat().format(
-                        item.monthlyprice.toFixed(2)
-                      )}
-                      $ <span>/month</span>{" "}
+                      {/* {new Intl.NumberFormat().format(item.price.toFixed(2))}${" "} */}
+                      {item.price}
+                      {/* <span>/month</span>{" "} */}
                     </span>
                     <p className="listing-text">{item.text}</p>
                     <div className="acr-listing-icons">
@@ -182,7 +190,7 @@ class Content extends Component {
                         <div className="acr-listing-icon">
                           <i className="flaticon-bedroom" />
                           <span className="acr-listing-icon-value">
-                            {item.beds}
+                            {item.bedrooms}
                           </span>
                         </div>
                       </OverlayTrigger>
@@ -205,7 +213,8 @@ class Content extends Component {
                     </div>
                     <div className="listing-gallery-wrapper">
                       <Link
-                        to="/listing-details-v1"
+                        // to="/listing-details-v1"
+                        to={`/listing-details-v1/${item._id}`}
                         className="btn-custom btn-sm secondary"
                       >
                         View Details
@@ -220,7 +229,7 @@ class Content extends Component {
                   </div>
                 </div>
               ))}
-              Listing End */}
+              {/* Listing End */}
             </div>
           </div>
         </div>

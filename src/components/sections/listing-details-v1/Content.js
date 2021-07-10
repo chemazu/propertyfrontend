@@ -5,7 +5,7 @@ class Content extends Component {
   render() {
     return (
       <Fragment>
-        <Listingwrapper />
+        <Listingwrapper id={this.props.id} />
       </Fragment>
     );
   }

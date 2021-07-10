@@ -1,24 +1,28 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
 import {
   OverlayTrigger,
   Tooltip,
   Dropdown,
   NavLink,
-  Accordion,
-  Card,
+  // Accordion,
+  // Card,
 } from "react-bootstrap";
 import listing from "../../../data/listings.json";
-import Calculator from "../../layouts/Calculator";
+// import Calculator from "../../layouts/Calculator";
 import $ from "jquery";
 import "magnific-popup";
 import classNames from "classnames";
 
 // Gallery
+const listinggallery = [
+  { img: "assets/img/listing-single/2.jpg" },
+  { img: "assets/img/listing-single/3.jpg" },
+  { img: "assets/img/listing-single/4.jpg" },
+  { img: "assets/img/listing-single/5.jpg" },
+];
 
-const listinggallery = ["orange.jpg", "green.jpg", "blue.jpg", "white.jpg"];
 const gallerytip = <Tooltip>Gallery</Tooltip>;
 const bedstip = <Tooltip>Beds</Tooltip>;
 const bathstip = <Tooltip>Bathrooms</Tooltip>;
@@ -26,10 +30,12 @@ const areatip = <Tooltip>Square Feet</Tooltip>;
 
 class Listingwrapper extends Component {
   constructor(props) {
+    console.log("mounted", 1);
     super(props);
     this.state = {
       showmore: false,
-      listing: "",
+      listing: { title: "Property Name" },
+      user: "",
     };
     this.showmoretoggle = this.showmoretoggle.bind(this);
     const getListing = async () => {
@@ -46,13 +52,11 @@ class Listingwrapper extends Component {
     };
     getListing();
   }
-
   showmoretoggle() {
     this.setState({
       showmore: !this.state.showmore,
     });
   }
-
   componentDidMount() {
     function popup() {
       $(".gallery-thumb").magnificPopup({
@@ -65,8 +69,19 @@ class Listingwrapper extends Component {
     popup();
   }
   render() {
-    console.log(this.state);
-    const gallery = this.state.listing.images || listinggallery;
+    const {
+      title,
+      description,
+      images,
+      price,
+      type,
+      bathrooms,
+      bedrooms,
+      area,
+      location,
+    } = this.state.listing;
+    console.log(images);
+    let gallery = images || ["assets/img/listing-single/2.jpg"];
 
     return (
       <div className="section listing-wrapper" style={{ paddingTop: "40vh" }}>
@@ -76,34 +91,9 @@ class Listingwrapper extends Component {
             <div className="col-lg-8">
               {/* Content Start */}
               <div className="listing-content">
-                <h4>Property Overview</h4>
-
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum.
-                </p>
+                <h4>{title}</h4>
+                <p>{description}</p>
                 <div className="row">
-                  {/* {listinggallery.map((item, i) => (
-                    <div key={i} className="col-md-6 mb-3">
-                      <Link
-                        to={process.env.PUBLIC_URL + "/" + item.img}
-                        className="gallery-thumb"
-                      >
-                        <img
-                          src={process.env.PUBLIC_URL + "/" + item.img}
-                          alt="post"
-                        />
-                      </Link>
-                    </div>
-                  ))} */}
                   {gallery.map((item, i) => (
                     <div key={i} className="col-md-6 mb-3">
                       <Link to={`/uploads/${item}`} className="gallery-thumb">
@@ -112,20 +102,12 @@ class Listingwrapper extends Component {
                     </div>
                   ))}
                 </div>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry.{" "}
-                  <Link to="#">Lorem Ipsum has been the industry's</Link>{" "}
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book.
-                </p>
               </div>
               {/* Content End */}
               {/* Price Range In the area Start */}
               <div className="section">
                 <div className="acr-area-price">
-                  <span style={{ left: "30%" }}>852,000$</span>
+                  <span style={{ left: "30%" }}>{price}</span>
                   <div className="progress">
                     <div
                       className="progress-bar"
@@ -138,12 +120,12 @@ class Listingwrapper extends Component {
                   </div>
                   <div className="acr-area-price-wrapper">
                     <div className="acr-area-price-min">
-                      <h5>562,000$</h5>
+                      <h5>{parseInt(price) / 2}</h5>
                       <span>Lowest</span>
                     </div>
                     <h5>Price range in the area</h5>
                     <div className="acr-area-price-max">
-                      <h5>1,280,000$</h5>
+                      <h5>{parseInt(price) * 5}</h5>
                       <span>Highest</span>
                     </div>
                   </div>
@@ -158,21 +140,18 @@ class Listingwrapper extends Component {
                       <div className="listing-feature">
                         <i className="flaticon-picture" />
                         <h6 className="listing-feature-label">Propery Type</h6>
-                        <span className="listing-feature-value">House</span>
+                        <span className="listing-feature-value">{type}</span>
                       </div>
                       <div className="listing-feature">
-                        <i className="flaticon-bone" />
-                        <h6 className="listing-feature-label">Pet Friendly</h6>
-                        <span className="listing-feature-value">Yes</span>
+                        <i className="flaticon-mailbox" />
+                        <h6 className="listing-feature-label">Location</h6>
+                        <span className="listing-feature-value">
+                          {location}
+                        </span>
                       </div>
                       <div className="listing-feature">
                         <i className="flaticon-chair" />
                         <h6 className="listing-feature-label">Furnished</h6>
-                        <span className="listing-feature-value">Yes</span>
-                      </div>
-                      <div className="listing-feature">
-                        <i className="flaticon-fan" />
-                        <h6 className="listing-feature-label">Cooling</h6>
                         <span className="listing-feature-value">Yes</span>
                       </div>
                     </div>
@@ -182,23 +161,23 @@ class Listingwrapper extends Component {
                       <div className="listing-feature">
                         <i className="flaticon-bathroom" />
                         <h6 className="listing-feature-label">Bathrooms</h6>
-                        <span className="listing-feature-value">3</span>
+                        <span className="listing-feature-value">
+                          {bathrooms}
+                        </span>
                       </div>
                       <div className="listing-feature">
                         <i className="flaticon-pillow" />
                         <h6 className="listing-feature-label">Bed Rooms</h6>
-                        <span className="listing-feature-value">4</span>
+                        <span className="listing-feature-value">
+                          {bedrooms}
+                        </span>
                       </div>
-                      <div className="listing-feature">
-                        <i className="flaticon-mailbox" />
-                        <h6 className="listing-feature-label">Mail box</h6>
-                        <span className="listing-feature-value">Yes</span>
-                      </div>
+
                       <div className="listing-feature">
                         <i className="flaticon-ruler" />
                         <h6 className="listing-feature-label">Property Size</h6>
                         <span className="listing-feature-value">
-                          3,000 Sqft
+                          {area} Sqft
                         </span>
                       </div>
                     </div>
@@ -502,194 +481,7 @@ class Listingwrapper extends Component {
                   />
                 </div>
               </div>
-              <div className="section pt-0 acr-listing-history">
-                <h4>Property History</h4>
-                <Accordion defaultActiveKey="0" className="with-gap">
-                  <Card>
-                    <Accordion.Collapse eventKey="0" className="collapseparent">
-                      <Card.Body>
-                        <div className="row">
-                          <div className="col-sm-4">
-                            <img
-                              src={
-                                process.env.PUBLIC_URL +
-                                "/assets/img/listing-single/history-1.jpg"
-                              }
-                              alt="property history"
-                            />
-                          </div>
-                          <div className="col-sm-8">
-                            <h5>The Beginning</h5>
-                            Anim pariatur cliche reprehenderit, enim eiusmod
-                            high life accusamus terry richardson ad squid. 3
-                            wolf moon officia aute, non cupidatat skateboard
-                            dolor brunch. Food truck quinoa nesciunt laborum
-                            eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put
-                            a bird on it squid single-origin coffee nulla
-                            assumenda shoreditch et. Nihil anim keffiyeh
-                            helvetica, craft beer labore wes anderson cred
-                            nesciunt sapiente ea proident. Ad vegan excepteur
-                            butcher vice lomo. Leggings occaecat craft beer
-                            farm-to-table, raw denim aesthetic synth nesciunt
-                            you probably haven't heard of them accusamus labore
-                            sustainable VHS.
-                          </div>
-                        </div>
-                      </Card.Body>
-                    </Accordion.Collapse>
-                    <Card.Header>
-                      <Accordion.Toggle
-                        as={NavLink}
-                        variant="link"
-                        eventKey="0"
-                      >
-                        1979 - 1999
-                      </Accordion.Toggle>
-                    </Card.Header>
-                  </Card>
-                  <Card>
-                    <Accordion.Collapse eventKey="1" className="collapseparent">
-                      <Card.Body>
-                        <div className="row">
-                          <div className="col-sm-4">
-                            <img
-                              src={
-                                process.env.PUBLIC_URL +
-                                "/assets/img/listing-single/history-2.jpg"
-                              }
-                              alt="property history"
-                            />
-                          </div>
-                          <div className="col-sm-8">
-                            <h5>The Rebuilding Phase</h5>
-                            Anim pariatur cliche reprehenderit, enim eiusmod
-                            high life accusamus terry richardson ad squid. 3
-                            wolf moon officia aute, non cupidatat skateboard
-                            dolor brunch. Food truck quinoa nesciunt laborum
-                            eiusmod. Brunch 3 wolf moon tempor,
-                          </div>
-                        </div>
-                      </Card.Body>
-                    </Accordion.Collapse>
-                    <Card.Header>
-                      <Accordion.Toggle
-                        as={NavLink}
-                        variant="link"
-                        eventKey="1"
-                      >
-                        2000 - 2012
-                      </Accordion.Toggle>
-                    </Card.Header>
-                  </Card>
-                  <Card>
-                    <Accordion.Collapse eventKey="2" className="collapseparent">
-                      <Card.Body>
-                        <div className="row">
-                          <div className="col-sm-4">
-                            <img
-                              src={
-                                process.env.PUBLIC_URL +
-                                "/assets/img/listing-single/history-3.jpg"
-                              }
-                              alt="property history"
-                            />
-                          </div>
-                          <div className="col-sm-8">
-                            <h5>Modernization</h5>
-                            Anim pariatur cliche reprehenderit, enim eiusmod
-                            high life accusamus terry richardson ad squid. 3
-                            wolf moon officia aute, non cupidatat skateboard
-                            dolor brunch. Food truck quinoa nesciunt laborum
-                            eiusmod. Brunch 3 wolf moon tempor,
-                          </div>
-                        </div>
-                      </Card.Body>
-                    </Accordion.Collapse>
-                    <Card.Header>
-                      <Accordion.Toggle
-                        as={NavLink}
-                        variant="link"
-                        eventKey="2"
-                      >
-                        2013 - Till date
-                      </Accordion.Toggle>
-                    </Card.Header>
-                  </Card>
-                </Accordion>
-              </div>
-              <div className="section pt-0">
-                <h4>Schedule Link tour</h4>
-                <form>
-                  <div className="row">
-                    <div className="col-md-6 form-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Full Name"
-                        name="fname"
-                      />
-                    </div>
-                    <div className="col-md-6 form-group">
-                      <input
-                        type="email"
-                        className="form-control"
-                        placeholder="Email Address"
-                        name="email"
-                      />
-                    </div>
-                    <div className="col-md-6 form-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Phone Number"
-                        name="phone"
-                      />
-                    </div>
-                    <div className="col-md-6 form-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Date"
-                        name="date"
-                      />
-                    </div>
-                    <div className="col-md-12 form-group">
-                      <textarea
-                        className="form-control"
-                        placeholder="Type your comment..."
-                        name="comment"
-                        rows={7}
-                      />
-                    </div>
-                  </div>
-                  <button
-                    type="submit"
-                    className="btn-custom primary"
-                    name="button"
-                  >
-                    Schedule Tour
-                  </button>
-                </form>
-              </div>
-              {/* Pagination Start */}
-              <div className="section p-0 post-single-pagination-wrapper">
-                <div className="post-single-pagination post-prev">
-                  <i className="fas fa-arrow-left" />
-                  <Link to="#" className="post-single-pagination-content">
-                    <span>Prev Listing</span>
-                    <h6>Theodore Lowe, Azusa New York 39531</h6>
-                  </Link>
-                </div>
-                <div className="post-single-pagination post-next">
-                  <Link to="#" className="post-single-pagination-content">
-                    <span>Next Listing</span>
-                    <h6>Cecilia Chapman, Mankato Mississippi 96522</h6>
-                  </Link>
-                  <i className="fas fa-arrow-right" />
-                </div>
-              </div>
-              {/* Pagination End */}
-              {/* Similar Start */}
+
               <div className="section section-padding">
                 <h4>Similar Listings</h4>
                 <div className="row">
@@ -983,10 +775,6 @@ class Listingwrapper extends Component {
                       </div>
                     ))}
                   {/* Listing End */}
-                </div>
-                <div className="sidebar-widget">
-                  <h5>Mortgage Calculator</h5>
-                  <Calculator />
                 </div>
               </div>
             </div>

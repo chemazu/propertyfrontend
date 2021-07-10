@@ -30,6 +30,8 @@ class Content extends Component {
       password: "",
       accountType: "",
       craft: "",
+      phone: "",
+      address: "",
     };
   }
   handleChange = (e) => {
@@ -52,7 +54,8 @@ class Content extends Component {
       dots: true,
       dotsClass: "d-flex slick-dots",
     };
-    const { name, email, password, accountType, craft } = this.state;
+    const { name, email, password, accountType, craft, phone, address } =
+      this.state;
     return (
       <div className="acr-auth-container">
         <div className="acr-auth-content">
@@ -94,6 +97,28 @@ class Content extends Component {
                 placeholder="Password"
                 name="password"
                 value={password}
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Phone Number</label>
+              <input
+                type="text"
+                className="form-control form-control-light"
+                placeholder="Phone Number"
+                name="phone"
+                value={phone}
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Address</label>
+              <input
+                type="text"
+                className="form-control form-control-light"
+                placeholder="Address"
+                name="address"
+                value={address}
                 onChange={this.handleChange}
               />
             </div>
@@ -148,6 +173,7 @@ class Content extends Component {
                 <option value="19">Windows and wall Partition Experts</option>
               </select>
             </div>
+
             <button type="submit" className="btn-custom secondary btn-block">
               <Link>Register</Link>
             </button>

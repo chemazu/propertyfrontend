@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import crafts from "../../../data/crafts.json";
 
 import Login from "../login/Content";
 
@@ -9,27 +10,30 @@ class Content extends Component {
     super();
     this.state = {
       token: null,
+      loggedInUser: "",
       userInfo: "",
     };
-  }
-  async componentWillMount() {
-    const token = JSON.parse(localStorage.getItem("authtoken")) || null;
-    this.setState({ token });
-    let res = await axios.get(`/user/${token.userId}`, {
-      headers: { Authorization: `Bearer ${token.token}` },
-    });
-    let data = await res.data;
-    const userInfo = data.data;
-    localStorage.setItem("loggedInUser", JSON.stringify(userInfo));
-    this.setState({ userInfo });
   }
   handleLogout = () => {
     console.log("logged out");
     localStorage.clear();
     console.log(localStorage);
   };
+  handleUpdate = (e) => {
+    const { name, value } = e.target;
+    this.setState({ ...this.state, [name]: value });
+    console.log(this.state);
+  };
+  handleSubmit = async (e) => {
+    let res = await axios.put(
+      `http://localhost:5000/updateuser/${this.props.loggedInUser._id}`,
+      this.state
+    );
+    let data = await res.data;
+    return data;
+  };
   render() {
-    const { name, email, craft } = this.state.userInfo;
+    const { name, email, craft, phone, address } = this.props.loggedInUser;
     return (
       <div className="section">
         <div className="container">
@@ -72,18 +76,20 @@ class Content extends Component {
                   standard dummy text ever since the 1500s
                 </p>
               </div>
-              <form>
+              <form onSubmit={this.handleSubmit}>
                 <div className="row">
                   <div className="col-lg-6 form-group">
-                    <label>{name}</label>
+                    <label>Name</label>
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Randy Blue"
-                      defaultValue="Randy Blue"
+                      name="name"
+                      placeholder={name}
+                      // defaultValue={name}
+                      onChange={this.handleUpdate}
                     />
                   </div>
-                  <div className="col-lg-6 form-group">
+                  {/* <div className="col-lg-6 form-group">
                     <label>Username</label>
                     <input
                       type="text"
@@ -91,42 +97,51 @@ class Content extends Component {
                       placeholder="randydandy"
                       defaultValue="randydandy"
                     />
-                  </div>
+                  </div> */}
                   <div className="col-lg-6 form-group">
                     <label>Email Address</label>
                     <input
                       type="email"
                       className="form-control"
-                      placeholder="randy_blue@hotmail.com"
-                      defaultValue="randy_blue@hotmail.com"
+                      placeholder={email}
                     />
                   </div>
                   <div className="col-lg-6 form-group">
                     <label>Phone Number</label>
                     <input
+                      onChange={this.handleUpdate}
                       type="text"
                       className="form-control"
-                      placeholder="+123 456 789"
-                      defaultValue="+123 456 789"
+                      placeholder={phone}
                     />
                   </div>
                   <div className="col-lg-6 form-group">
-                    <label>Address One</label>
+                    <label>Address</label>
                     <input
+                      onChange={this.handleUpdate}
                       type="text"
                       className="form-control"
-                      placeholder="Address"
+                      placeholder={address}
                     />
                   </div>
-                  <div className="col-lg-6 form-group">
+                  {/* <div className="col-lg-6 form-group">
                     <label>Address Two</label>
-                    <input
+                    <input onChange={this.handleUpdate}
                       type="text"
                       className="form-control"
                       placeholder="Address"
                     />
+                  </div> */}
+                  <div className="col-lg-4 form-group">
+                    <label>Craft</label>
+                    <input
+                      onChange={this.handleUpdate}
+                      name="craft"
+                      className="form-control"
+                      placeholder={crafts[craft]}
+                    />
                   </div>
-                  <div className="col-lg-12 form-group">
+                  <div className="col-lg-8 form-group">
                     <label>About Me</label>
                     <textarea
                       name="about"
@@ -154,6 +169,7 @@ class Content extends Component {
                   <div className="col-lg-6 form-group">
                     <label>Password</label>
                     <input
+                      onChange={this.handleUpdate}
                       type="password"
                       className="form-control"
                       placeholder="Password"

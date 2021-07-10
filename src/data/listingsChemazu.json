@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "gridimg": "assets/img/listings/1.jpg",
+    "listimg": "assets/img/listings-list/1.jpg",
+    "title": "Add Property",
+    "authorimg": "assets/img/people/2.jpg",
+    "authorname": "Heather Mclayn",
+    "postdate": "March 3, 2020",
+    "price": 13500,
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "area": 2499,
+    "star": true,
+    "sale": false,
+    "status": "rent",
+    "pending": true,
+    "rental": false,
+    "recent": true,
+    "images": [
+      "356d750879d65fa237f90eb10d6e712eWhatsApp_Image_2021-06-16_at_15.52.15_(3).jpeg",
+      "a84a46e56ef7b6a763d94407a917820bWhatsApp_Image_2021-06-16_at_15.52.15_(2)_-_Copy.jpeg"
+    ]
+  }
+]

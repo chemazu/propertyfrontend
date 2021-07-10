@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { Suspense } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // Preloader
 const Preloader = React.lazy(() => import("./components/layouts/Preloader"));
@@ -26,19 +26,36 @@ const Legal = React.lazy(() => import("./components/pages/Legal"));
 const Listinggrid = React.lazy(() => import("./components/pages/Listinggrid"));
 const Listinglist = React.lazy(() => import("./components/pages/Listinglist"));
 const Listingmap = React.lazy(() => import("./components/pages/Listingmap"));
-const Listingdetailsone = React.lazy(() => import("./components/pages/Listingdetailsone"));
-const Submitlisting = React.lazy(() => import("./components/pages/Submitlisting"));
-const Comparelistings = React.lazy(() => import("./components/pages/Comparelistings"));
+const Listingdetailsone = React.lazy(() =>
+  import("./components/pages/Listingdetailsone")
+);
+const Submitlisting = React.lazy(() =>
+  import("./components/pages/Submitlisting")
+);
+const Comparelistings = React.lazy(() =>
+  import("./components/pages/Comparelistings")
+);
 // Agents
-const Agentarchive = React.lazy(() => import("./components/pages/Agentarchive"));
-const Agentdetails = React.lazy(() => import("./components/pages/Agentdetails"));
+const Agentarchive = React.lazy(() =>
+  import("./components/pages/Agentarchive")
+);
+const Agentdetails = React.lazy(() =>
+  import("./components/pages/Agentdetails")
+);
 const Profile = React.lazy(() => import("./components/pages/Profile"));
-const Profilelistings = React.lazy(() => import("./components/pages/Profilelistings"));
-const Profilesavedlistings = React.lazy(() => import("./components/pages/Profilesavedlistings"));
+const Profilelistings = React.lazy(() =>
+  import("./components/pages/Profilelistings")
+);
+const Profilesavedlistings = React.lazy(() =>
+  import("./components/pages/Profilesavedlistings")
+);
 // Agency
-const Agencyarchive = React.lazy(() => import("./components/pages/Agencyarchive"));
-const Agencydetails = React.lazy(() => import("./components/pages/Agencydetails"));
-
+const Agencyarchive = React.lazy(() =>
+  import("./components/pages/Agencyarchive")
+);
+const Agencydetails = React.lazy(() =>
+  import("./components/pages/Agencydetails")
+);
 
 function App() {
   return (
@@ -68,7 +85,7 @@ function App() {
           <Route path="/listing-grid" component={Listinggrid} />
           <Route path="/listing-list" component={Listinglist} />
           <Route path="/listing-map" component={Listingmap} />
-          <Route path="/listing-details-v1" component={Listingdetailsone} />
+          <Route path="/listing-details-v1/:id" component={Listingdetailsone} />
 
           <Route path="/submit-listing" component={Submitlisting} />
           <Route path="/compare-listings" component={Comparelistings} />
@@ -77,7 +94,10 @@ function App() {
           <Route path="/agent-details" component={Agentdetails} />
           <Route path="/profile" component={Profile} />
           <Route path="/profile-listings" component={Profilelistings} />
-          <Route path="/profile-saved-listings" component={Profilesavedlistings} />
+          <Route
+            path="/profile-saved-listings"
+            component={Profilesavedlistings}
+          />
           {/* Agency */}
           <Route path="/agency-archive" component={Agencyarchive} />
           <Route path="/agency-details" component={Agencydetails} />

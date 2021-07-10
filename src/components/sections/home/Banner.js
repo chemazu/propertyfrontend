@@ -71,6 +71,8 @@ class Banner extends Component {
       arrows: false,
       dots: false,
       fade: true,
+      autoplay: true,
+      autoplaySpeed: 2000,
     };
     return (
       <div className="banner banner-2">
