@@ -17,7 +17,6 @@ export default function Login() {
     let data = await res.data;
     localStorage.setItem("authtoken", JSON.stringify(data));
     if (data.success) {
-      console.log("sucess");
       history.push("/profile");
     } else {
       console.log("error");

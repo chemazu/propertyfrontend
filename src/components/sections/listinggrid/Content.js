@@ -5,6 +5,7 @@ import Sidebar from "../../layouts/Shopsidebar";
 import listing from "../../../data/listings.json";
 import classNames from "classnames";
 import Loader from "../../layouts/Loader";
+import axios from "axios";
 
 const gallerytip = <Tooltip>Gallery</Tooltip>;
 
@@ -13,8 +14,8 @@ const bathstip = <Tooltip>Bathrooms</Tooltip>;
 const areatip = <Tooltip>Square Feet</Tooltip>;
 
 class Content extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       items: listing,
       currentPage: 1,
@@ -44,7 +45,7 @@ class Content extends Component {
 
   render() {
     const { items, currentPage, itemsPerPage } = this.state;
-
+    console.log(this.props.listing.data);
     // Logic for displaying items
     const indexOfLastitem = currentPage * itemsPerPage;
     const indexOfFirstitem = indexOfLastitem - itemsPerPage;

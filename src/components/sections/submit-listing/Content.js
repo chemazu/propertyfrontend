@@ -163,12 +163,6 @@ function Content(props) {
                           <option value="For Rent">For Rent</option>
                           <option value="Featured">Featured</option>
                           <option value="For Sale">For Sale</option>
-                          <option value="Leased">Leased</option>
-                          <option value="New Addition">New Addition</option>
-                          <option value="Sold">Sold</option>
-                          <option value="Rental">Rental</option>
-                          <option value="Reduced">Reduced</option>
-                          <option value="Special Offer">Special Offer</option>
                         </select>
                       </div>
                       <div className="col-md-6 form-group">

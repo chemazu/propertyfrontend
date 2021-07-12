@@ -23,7 +23,9 @@ class Menu extends Component {
             <ul className="submenu">
               <li className="menu-item">
                 {" "}
-                <Link to="/listing-grid">find properties for sale</Link>{" "}
+                <Link to="/listing-grid/buy">
+                  find properties for sale
+                </Link>{" "}
               </li>
             </ul>
           </li>
@@ -32,46 +34,49 @@ class Menu extends Component {
             <ul className="submenu">
               <li className="menu-item">
                 {" "}
-                <Link to="/listing-grid">find properties for rent </Link>{" "}
+                <Link to="/listing-grid/rent">
+                  find properties for rent{" "}
+                </Link>{" "}
               </li>
             </ul>
           </li>
           <li className="menu-item menu-item-has-children">
-            <Link to="/agency-archive">Sell</Link>
+            <Link to="/submit-listing">Sell</Link>
             <ul className="submenu">
               <li className="menu-item">
                 {" "}
-                <Link to="/listing-grid">sell with ease </Link>{" "}
+                <Link to="/submit-listing">sell with ease </Link>{" "}
+              </li>
+            </ul>
+          </li>
+
+          <li className="menu-item menu-item-has-children">
+            <Link>Request</Link>
+            <ul className="submenu">
+              <li className="menu-item">
+                {" "}
+                <Link to="/submit-request">Submit Request</Link>{" "}
+              </li>
+              <li className="menu-item">
+                {" "}
+                <Link to="/listing-grid/rent">View Requests</Link>{" "}
               </li>
             </ul>
           </li>
           <li className="menu-item menu-item-has-children">
-            <Link to="/agency-archive">Find Craftsmen</Link>
+            <Link to="/agent-archive">Find Craftsmen</Link>
             <ul className="submenu">
               <li className="menu-item">
                 {" "}
-                <Link to="/agency-archive">
+                <Link to="/agent-archive">
                   Find craftsmen and other Pros
                 </Link>{" "}
               </li>
               <li className="menu-item">
                 {" "}
-                <Link to="/agency-details">
-                  “Enlist your trade as a craftsman
+                <Link to="/register">
+                  Enlist your trade as a craftsman
                 </Link>{" "}
-              </li>
-            </ul>
-          </li>
-          <li className="menu-item menu-item-has-children">
-            <Link to="/agency-archive">Request</Link>
-            <ul className="submenu">
-              <li className="menu-item">
-                {" "}
-                <Link to="/agency-archive">Agency Archive</Link>{" "}
-              </li>
-              <li className="menu-item">
-                {" "}
-                <Link to="/agency-details">Agency Details</Link>{" "}
               </li>
             </ul>
           </li>

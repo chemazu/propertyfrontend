@@ -32,6 +32,9 @@ const Listingdetailsone = React.lazy(() =>
 const Submitlisting = React.lazy(() =>
   import("./components/pages/Submitlisting")
 );
+const Submitrequest = React.lazy(() =>
+  import("./components/pages/Submitrequest")
+);
 const Comparelistings = React.lazy(() =>
   import("./components/pages/Comparelistings")
 );
@@ -82,12 +85,14 @@ function App() {
           <Route path="/register" component={Register} />
           <Route path="/legal" component={Legal} />
           {/* Listings */}
-          <Route path="/listing-grid" component={Listinggrid} />
+          <Route path="/listing-grid/:id" component={Listinggrid} />
           <Route path="/listing-list" component={Listinglist} />
           <Route path="/listing-map" component={Listingmap} />
           <Route path="/listing-details-v1/:id" component={Listingdetailsone} />
 
           <Route path="/submit-listing" component={Submitlisting} />
+          <Route path="/submit-request" component={Submitrequest} />
+
           <Route path="/compare-listings" component={Comparelistings} />
           {/* Agents */}
           <Route path="/agent-archive" component={Agentarchive} />
