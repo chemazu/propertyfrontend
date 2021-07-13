@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { ProtectedRoute } from "./protected.route";
 
 // Preloader
 const Preloader = React.lazy(() => import("./components/layouts/Preloader"));
@@ -97,7 +98,9 @@ function App() {
           {/* Agents */}
           <Route path="/agent-archive/:id" component={Agentarchive} />
           <Route path="/agent-details" component={Agentdetails} />
-          <Route path="/profile" component={Profile} />
+          {/* <Route path="/profile" component={Profile} /> */}
+          <ProtectedRoute path="/profile" component={Profile} />
+
           <Route path="/profile-listings" component={Profilelistings} />
           <Route
             path="/profile-saved-listings"
