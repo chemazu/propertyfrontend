@@ -95,7 +95,7 @@ function App() {
 
           <Route path="/compare-listings" component={Comparelistings} />
           {/* Agents */}
-          <Route path="/agent-archive" component={Agentarchive} />
+          <Route path="/agent-archive/:id" component={Agentarchive} />
           <Route path="/agent-details" component={Agentdetails} />
           <Route path="/profile" component={Profile} />
           <Route path="/profile-listings" component={Profilelistings} />

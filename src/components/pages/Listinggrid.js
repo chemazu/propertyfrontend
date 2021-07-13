@@ -20,10 +20,6 @@ export default function Listinggrid() {
     setListing(data);
     console.log(listing);
   };
-  // console.log(listing);
-  //assign the result to a variable
-  //pass the variable as props
-  //destructure the useable data
   return (
     <Fragment>
       <MetaTags>

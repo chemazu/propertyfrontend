@@ -5,7 +5,6 @@ import Sidebar from "../../layouts/Shopsidebar";
 import listing from "../../../data/listings.json";
 import classNames from "classnames";
 import Loader from "../../layouts/Loader";
-import axios from "axios";
 
 const gallerytip = <Tooltip>Gallery</Tooltip>;
 
