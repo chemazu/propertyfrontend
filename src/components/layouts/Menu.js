@@ -64,11 +64,11 @@ class Menu extends Component {
             </ul>
           </li>
           <li className="menu-item menu-item-has-children">
-            <Link to="/agent-archive">Find Craftsmen</Link>
+            <Link to="/agent-archive/craftsmen">Find Craftsmen</Link>
             <ul className="submenu">
               <li className="menu-item">
                 {" "}
-                <Link to="/agent-archive">
+                <Link to="/agent-archive/craftsmen">
                   Find craftsmen and other Pros
                 </Link>{" "}
               </li>

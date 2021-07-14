@@ -91,14 +91,13 @@ function App() {
           <Route path="/listing-map" component={Listingmap} />
           <Route path="/listing-details-v1/:id" component={Listingdetailsone} />
 
-          <Route path="/submit-listing" component={Submitlisting} />
-          <Route path="/submit-request" component={Submitrequest} />
+          <ProtectedRoute path="/submit-listing" component={Submitlisting} />
+          <ProtectedRoute path="/submit-request" component={Submitrequest} />
 
           <Route path="/compare-listings" component={Comparelistings} />
           {/* Agents */}
           <Route path="/agent-archive/:id" component={Agentarchive} />
           <Route path="/agent-details" component={Agentdetails} />
-          {/* <Route path="/profile" component={Profile} /> */}
           <ProtectedRoute path="/profile" component={Profile} />
 
           <Route path="/profile-listings" component={Profilelistings} />

@@ -20,21 +20,6 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
             />
           );
         }
-        // return <Component {...props} />;
-        // if ("loggedIn") {
-        //   return <Component {...props} />;
-        // } else {
-        //   return (
-        //     <Redirect
-        //       to={{
-        //         pathname: "/",
-        //         state: {
-        //           from: props.location,
-        //         },
-        //       }}
-        //     />
-        //   );
-        // }
       }}
     />
   );
