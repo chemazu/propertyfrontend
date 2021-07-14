@@ -14,7 +14,10 @@ export default function Listinggrid() {
   }, []);
   let { id } = useParams();
   const getListing = async () => {
-    let res = await axios.get(`/listing/listings/${id}`, {});
+    let res = await axios.get(
+      `${process.env.REACT_APP_PUBLIC_URL}/listing/listings/${id}`,
+      {}
+    );
     let data = await res.data;
     console.log(data);
     setListing(data);

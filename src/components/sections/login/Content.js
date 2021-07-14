@@ -13,7 +13,10 @@ export default function Login() {
   }
   async function handleSubmit(e) {
     e.preventDefault();
-    let res = await axios.post("/login", auth);
+    let res = await axios.post(
+      `${process.env.REACT_APP_PUBLIC_URL}/login`,
+      auth
+    );
     let data = await res.data;
     localStorage.setItem("authtoken", JSON.stringify(data));
     if (data.success) {

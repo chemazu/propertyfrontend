@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ProtectedRoute } from "./protected.route";
+import dontenv from "dotenv";
 
 // Preloader
 const Preloader = React.lazy(() => import("./components/layouts/Preloader"));
@@ -62,6 +63,7 @@ const Agencydetails = React.lazy(() =>
 );
 
 function App() {
+  // dontenv.config();
   return (
     <Router>
       <Suspense fallback={<div></div>}>

@@ -20,9 +20,12 @@ class Content extends Component {
   async componentWillMount() {
     const token = JSON.parse(localStorage.getItem("authtoken")) || null;
     this.setState({ token });
-    let listingRes = await axios.get(`/listing/listings/${token.userId}`, {
-      headers: { Authorization: `Bearer ${token.token}` },
-    });
+    let listingRes = await axios.get(
+      `${process.env.REACT_APP_PUBLIC_URL}/listing/listings/${token.userId}`,
+      {
+        headers: { Authorization: `Bearer ${token.token}` },
+      }
+    );
     let listingData = await listingRes.data;
     const userListings = listingData.data;
     localStorage.setItem("userListing", JSON.stringify(userListings));

@@ -32,9 +32,12 @@ class Content extends Component {
   // }
   async componentWillMount() {
     console.log(token.token);
-    let res = await axios.get(`/listing/listings/${token.userId}`, {
-      headers: { Authorization: `Bearer ${token.token}` },
-    });
+    let res = await axios.get(
+      `${process.env.REACT_APP_PUBLIC_URL}/listing/listings/${token.userId}`,
+      {
+        headers: { Authorization: `Bearer ${token.token}` },
+      }
+    );
     const listingData = await res.data;
     // console.log(listingData.data);
     this.setState({ userListings: listingData.data });

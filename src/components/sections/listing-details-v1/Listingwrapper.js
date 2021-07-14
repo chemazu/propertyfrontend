@@ -35,7 +35,7 @@ class Listingwrapper extends Component {
     const getListing = async () => {
       const token = JSON.parse(localStorage.getItem("authtoken")) || null;
       let res = await axios.get(
-        `http://localhost:5000/listing/listing/${this.props.id}`,
+        `${process.env.REACT_APP_PUBLIC_URL}/listing/listing/${this.props.id}`,
         {
           headers: { Authorization: `Bearer ${token.token}` },
         }

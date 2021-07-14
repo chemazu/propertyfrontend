@@ -40,9 +40,12 @@ class Listingwrapper extends Component {
     this.showmoretoggle = this.showmoretoggle.bind(this);
     const getListing = async () => {
       const token = JSON.parse(localStorage.getItem("authtoken")) || null;
-      let res = await axios.get(`/listing/listing/${this.props.id}`, {
-        headers: { Authorization: `Bearer ${token.token}` },
-      });
+      let res = await axios.get(
+        `${process.env.REACT_APP_PUBLIC_URL}/listing/listing/${this.props.id}`,
+        {
+          headers: { Authorization: `Bearer ${token.token}` },
+        }
+      );
       let data = await res.data;
       console.log(data);
       this.setState({ listing: data.data });

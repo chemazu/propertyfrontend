@@ -40,7 +40,10 @@ function Content(props) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    let res = await axios.post("/request/add", request);
+    let res = await axios.post(
+      `${process.env.REACT_APP_PUBLIC_URL}/request/add`,
+      request
+    );
     let data = await res.data;
     if (data.success) {
       history.push("/profile");

@@ -79,7 +79,10 @@ function Content(props) {
       formData.append(`file`, photos[i]);
     }
     formData.append("listing", JSON.stringify(listing));
-    let res = await axios.post("/listing/add", formData);
+    let res = await axios.post(
+      `${process.env.REACT_APP_PUBLIC_URL}/listing/add`,
+      formData
+    );
     let data = await res.data;
     console.log(data);
   }

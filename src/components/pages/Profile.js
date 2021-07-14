@@ -15,9 +15,12 @@ class Profile extends Component {
   }
   async componentWillMount() {
     const token = JSON.parse(localStorage.getItem("authtoken")) || null;
-    let res = await axios.get(`/user/${token.userId}`, {
-      headers: { Authorization: `Bearer ${token.token}` },
-    });
+    let res = await axios.get(
+      `${process.env.REACT_APP_PUBLIC_URL}/user/${token.userId}`,
+      {
+        headers: { Authorization: `Bearer ${token.token}` },
+      }
+    );
     let data = await res.data;
     let loggedInUser = data.data;
     localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));

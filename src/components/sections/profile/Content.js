@@ -26,7 +26,7 @@ class Content extends Component {
   };
   handleSubmit = async (e) => {
     let res = await axios.put(
-      `http://localhost:5000/updateuser/${this.props.loggedInUser._id}`,
+      `${process.env.REACT_APP_PUBLIC_URL}/updateuser/${this.props.loggedInUser._id}`,
       this.state
     );
     let data = await res.data;

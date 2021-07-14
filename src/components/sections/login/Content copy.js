@@ -36,7 +36,10 @@ class Content extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    let res = await axios.post("http://localhost:5000/login", this.state);
+    let res = await axios.post(
+      `${process.env.REACT_APP_PUBLIC_URL}/login`,
+      this.state
+    );
     let data = await res.data;
     console.log(data);
     if (data.success) {
