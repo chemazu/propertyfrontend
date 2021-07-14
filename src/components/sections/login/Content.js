@@ -3,6 +3,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 export default function Login() {
+  console.log(process.env);
   const history = useHistory();
   const [err, setErr] = useState(false);
   const [auth, setAuth] = useState({ email: "", password: "" });

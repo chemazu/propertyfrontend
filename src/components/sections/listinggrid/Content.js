@@ -55,7 +55,7 @@ class Content extends Component {
         <div key={i} className="col-md-6">
           <div className="listing">
             <div className="listing-thumbnail">
-              <Link to="/listing-details-v1">
+              <Link to="/listing-details-v1/60d98fafff49602c48f50996">
                 <img
                   src={process.env.PUBLIC_URL + "/" + item.gridimg}
                   alt="listing"
@@ -106,7 +106,7 @@ class Content extends Component {
                       </li>
                       <li>
                         {" "}
-                        <Link to="/listing-details-v1">
+                        <Link to="/listing-details-v1/60d98fafff49602c48f50996">
                           {" "}
                           <i className="fas fa-bookmark" /> Book Tour
                         </Link>{" "}
@@ -117,7 +117,10 @@ class Content extends Component {
               </div>
               <h5 className="listing-title">
                 {" "}
-                <Link to="/listing-details-v1" title={item.title}>
+                <Link
+                  to="/listing-details-v1/60d98fafff49602c48f50996"
+                  title={item.title}
+                >
                   {item.title}
                 </Link>{" "}
               </h5>
@@ -152,7 +155,7 @@ class Content extends Component {
               </div>
               <div className="listing-gallery-wrapper">
                 <Link
-                  to="/listing-details-v1"
+                  to="/listing-details-v1/60d98fafff49602c48f50996"
                   className="btn-custom btn-sm secondary"
                 >
                   View Details

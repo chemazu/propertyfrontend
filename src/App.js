@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ProtectedRoute } from "./protected.route";
-import dontenv from "dotenv";
 
 // Preloader
 const Preloader = React.lazy(() => import("./components/layouts/Preloader"));
