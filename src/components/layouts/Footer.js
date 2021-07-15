@@ -100,7 +100,7 @@ class Footer extends Component {
                 <ul>
                   <li>
                     {" "}
-                    <Link to="/listing-map">Find Home</Link>{" "}
+                    <Link to="/listing-grid/buy">Find home for sale</Link>{" "}
                   </li>
                   <li>
                     {" "}
@@ -108,7 +108,7 @@ class Footer extends Component {
                   </li>
                   <li>
                     {" "}
-                    <Link to="/listing-map">Listings</Link>{" "}
+                    <Link to="/listing-grid/rent">Find home for sale</Link>{" "}
                   </li>
                   <li>
                     {" "}
