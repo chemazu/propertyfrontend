@@ -18,7 +18,7 @@ class Footer extends Component {
                 <div className="footer-logo">
                   {" "}
                   <img
-                    src={process.env.PUBLIC_URL + "/assets/img/logo.png"}
+                    src={process.env.PUBLIC_URL + "/assets/img/logo.jpg"}
                     alt="acres"
                   />{" "}
                 </div>

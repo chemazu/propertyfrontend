@@ -9,7 +9,7 @@ class Menu extends Component {
         <Link className="navbar-brand" to="/">
           {" "}
           <img
-            src={process.env.PUBLIC_URL + "/assets/img/logo.png"}
+            src={process.env.PUBLIC_URL + "/assets/img/logo.jpg"}
             alt="logo"
           />{" "}
         </Link>

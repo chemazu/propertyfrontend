@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Tab, Nav } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 // Features
 const features = [
@@ -9,11 +10,14 @@ const features = [
   { id: 2, icon: "chair", title: "furnished" },
   { id: 3, icon: "garage", title: "parking" },
 ];
+
 const userInfo = JSON.parse(localStorage.getItem("loggedInUser"));
-console.log(userInfo);
 function Content(props) {
+  const history = useHistory();
   const [files, setFiles] = useState([]);
   const [photos, setPhotos] = useState([]);
+  const [thumbnail, setThumbnail] = useState([]);
+
   const [listing, setListing] = useState({
     userId: userInfo._id,
     title: "",
@@ -34,7 +38,6 @@ function Content(props) {
     images: [],
     more: "",
   });
-  console.log(localStorage);
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop: (acceptedFiles) => {
@@ -71,6 +74,11 @@ function Content(props) {
     const { name, value } = e.target;
     setListing({ ...listing, [name]: value });
   }
+  function handleThumbnail(e) {
+    console.log(e.target.files);
+    const file = e.target.files[0];
+    setThumbnail(file);
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -79,12 +87,18 @@ function Content(props) {
       formData.append(`file`, photos[i]);
     }
     formData.append("listing", JSON.stringify(listing));
+    formData.append("thumbnail", thumbnail);
+
     let res = await axios.post(
       `${process.env.REACT_APP_PUBLIC_URL}/listing/add`,
       formData
     );
     let data = await res.data;
-    console.log(data);
+    if (data.success) {
+      history.push("/profile");
+    } else {
+      console.log("error");
+    }
   }
   const {
     userId,
@@ -269,13 +283,14 @@ function Content(props) {
                     </div>
                   </Tab.Pane>
                   <Tab.Pane eventKey="tab2">
-                    {/* <div className="form-group">
+                    <div className="form-group">
                       <label>Property Thumbnail</label>
                       <div className="custom-file">
                         <input
                           type="file"
                           className="custom-file-input"
                           id="propertyThumbnail"
+                          onChange={handleThumbnail}
                         />
                         <label
                           className="custom-file-label"
@@ -284,7 +299,7 @@ function Content(props) {
                           Choose file
                         </label>
                       </div>
-                    </div> */}
+                    </div>
                     <div className="form-group">
                       <label>Property Gallery</label>
                       <div {...getRootProps({ className: "dropzone" })}>
@@ -294,10 +309,6 @@ function Content(props) {
                           <h5 className="dropzone-msg-title">
                             Drop files here or click to upload.
                           </h5>
-                          <span className="dropzone-msg-desc">
-                            This is just a demo dropzone. Selected files are{" "}
-                            <strong>not</strong> actually uploaded.
-                          </span>
                         </div>
                       </div>
                       <aside className="thumbsContainer">{thumbs}</aside>
