@@ -5,11 +5,11 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 // Features
-// const features = [
-//   { id: 1, icon: "mailbox", title: "serviced" },
-//   { id: 2, icon: "chair", title: "furnished" },
-//   { id: 3, icon: "garage", title: "parking" },
-// ];
+const features = [
+  { id: 1, icon: "mailbox", title: "serviced" },
+  { id: 2, icon: "chair", title: "furnished" },
+  { id: 3, icon: "garage", title: "parking" },
+];
 
 const userInfo = JSON.parse(localStorage.getItem("loggedInUser"));
 function Content(props) {
@@ -29,12 +29,12 @@ function Content(props) {
     address: "",
     price: "",
     beds: "",
-    toilets: "",
+    toilets: " ",
     baths: "",
     parking: false,
-    furnished: false,
-    serviced: false,
-    rooms: "",
+    furnished: "",
+    serviced: "",
+    rooms: 4,
     images: [],
     thumbnail: "",
   });
@@ -82,27 +82,22 @@ function Content(props) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(listing);
     const formData = new FormData();
     for (let i = 0; i < photos.length; i++) {
       formData.append(`file`, photos[i]);
     }
     formData.append("listing", JSON.stringify(listing));
     formData.append("thumbnail", thumbImage);
-    try {
-      let res = await axios.post(
-        `${process.env.REACT_APP_PUBLIC_URL}/listing/add`,
-        formData
-      );
-      let data = await res.data;
-      if (data.success) {
-        history.push("/profile");
-      }
-      if (!data.success) {
-        console.log();
-      }
-    } catch (error) {
-      console.log(error);
+
+    let res = await axios.post(
+      `${process.env.REACT_APP_PUBLIC_URL}/listing/add`,
+      formData
+    );
+    let data = await res.data;
+    if (data.success) {
+      history.push("/profile");
+    } else {
+      console.log("error");
     }
   }
   const {
@@ -121,12 +116,9 @@ function Content(props) {
     furnished,
     serviced,
     rooms,
+    images,
+    thumbnail,
   } = listing;
-  const features = [
-    { id: serviced, icon: "mailbox", title: "serviced" },
-    { id: furnished, icon: "chair", title: "furnished" },
-    { id: parking, icon: "garage", title: "parking" },
-  ];
   return (
     <div className="section">
       <div className="container">
@@ -149,6 +141,11 @@ function Content(props) {
                 <Nav.Item>
                   <Nav.Link eventKey="tab4">
                     <span>03</span> Features
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="tab5">
+                    <span>04</span> Additional Details
                   </Nav.Link>
                 </Nav.Item>
               </Nav>
@@ -188,7 +185,24 @@ function Content(props) {
                           <option value="sale">For Sale</option>
                         </select>
                       </div>
+                      <div className="col-md-6 form-group">
+                        <label>Property Category</label>
+                        <select
+                          className="form-control"
+                          name="category"
+                          value={type}
+                          onChange={handleChange}
+                        >
+                          <option>Select Category</option>
+                          <option value="residential">Residential</option>
 
+                          <option value="commercial">Commercial</option>
+                          <option value="villas">Villas</option>
+                          <option value="apartments">Apartments</option>
+                          <option value="beach">Beach House</option>
+                          <option value="duplex">Duplex</option>
+                        </select>
+                      </div>
                       <div className="col-md-6">
                         <label>Property Type</label>
                         <select
@@ -199,12 +213,12 @@ function Content(props) {
                         >
                           <option>Select property type</option>
 
-                          <option value="residential">Residential</option>
-                          <option value="commercial">Commercial</option>
-                          <option value="villas">Villas</option>
-                          <option value="apartments">Apartments</option>
-                          <option value="beach">Beach House</option>
-                          <option value="duplex">Duplex</option>
+                          <option value="House">House</option>
+                          <option value="Apartment">Apartment</option>
+                          <option value="Condo">Condo</option>
+                          <option value="Townhome">Townhome</option>
+                          <option value="Villa">Villa</option>
+                          <option value="Duplex">Duplex</option>
                         </select>
                       </div>
 
@@ -259,44 +273,33 @@ function Content(props) {
                         </div>
                       </div>
                       <div className="col-md-6 form-group">
-                        <label>Rooms</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Number of Bathrooms"
-                          name="rooms"
-                          value={rooms}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <div className="col-md-4 form-group">
                         <label>Bathrooms</label>
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Number of bathrooms"
-                          name="baths"
+                          placeholder="Number of Bathrooms"
+                          name="bathrooms"
                           value={baths}
                           onChange={handleChange}
                         />
                       </div>
-                      <div className="col-md-4 form-group">
+                      <div className="col-md-6 form-group">
                         <label>Beds</label>
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Number of bedrooms"
-                          name="beds"
+                          placeholder="Number of Bedrooms"
+                          name="bedrooms"
                           value={beds}
                           onChange={handleChange}
                         />
                       </div>
-                      <div className="col-md-4 form-group">
+                      <div className="col-md-6 form-group">
                         <label>Toilets</label>
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Number of toilets"
+                          placeholder="Number of Toilets"
                           name="toilets"
                           value={toilets}
                           onChange={handleChange}
@@ -356,55 +359,84 @@ function Content(props) {
                   <Tab.Pane eventKey="tab3"></Tab.Pane>
                   <Tab.Pane eventKey="tab4">
                     <div className="row">
-                      {features.map((item, i) => {
-                        return (
-                          <div key={i} className="col-lg-4 col-md-6 col-sm-6">
-                            <label className="acr-listing-feature">
-                              <input
-                                type="checkbox"
-                                name={item.title}
-                                value={item.id}
-                                onChange={handleChange}
-                              />
-                              <i className="acr-feature-check fas fa-check" />
-                              <i
-                                className={
-                                  "acr-listing-feature-icon flaticon-" +
-                                  item.icon +
-                                  ""
-                                }
-                              />
-                              {item.title}
-                            </label>
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <Tab.Pane eventKey="tab5">
-                      <div className="form-group">
-                        <div className="custom-control custom-checkbox">
-                          <input
-                            type="checkbox"
-                            className="custom-control-input"
-                            id="termsAndConditions"
-                          />
-                          <label
-                            className="custom-control-label"
-                            htmlFor="termsAndConditions"
-                          >
-                            I Agree to the terms &amp; Conditions of Property
-                            Submission
+                      {features.map((item, i) => (
+                        <div key={i} className="col-lg-4 col-md-6 col-sm-6">
+                          <label className="acr-listing-feature">
+                            <input
+                              type="checkbox"
+                              name={item.title}
+                              value={item.id}
+                              onChange={handleChange}
+                            />
+                            <i className="acr-feature-check fas fa-check" />
+                            <i
+                              className={
+                                "acr-listing-feature-icon flaticon-" +
+                                item.icon +
+                                ""
+                              }
+                            />
+                            {item.title}
                           </label>
                         </div>
+                      ))}
+                    </div>
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="tab5">
+                    <div className="row">
+                      <div className="col-md-6 form-group">
+                        <label>Bathrooms</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Number of Bathrooms"
+                          name="bathrooms"
+                          value={baths}
+                          onChange={handleChange}
+                        />
                       </div>
-                      <button
-                        type="submit"
-                        className="btn-custom"
-                        name="submit"
-                      >
-                        Submit Listing
-                      </button>
-                    </Tab.Pane>
+                      <div className="col-md-6 form-group">
+                        <label>Beds</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Number of Bedrooms"
+                          name="bedrooms"
+                          value={beds}
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div className="col-md-6 form-group">
+                        <label>Toilets</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Number of Toilets"
+                          name="toilets"
+                          value={toilets}
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <div className="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          className="custom-control-input"
+                          id="termsAndConditions"
+                        />
+                        <label
+                          className="custom-control-label"
+                          htmlFor="termsAndConditions"
+                        >
+                          I Agree to the terms &amp; Conditions of Property
+                          Submission
+                        </label>
+                      </div>
+                    </div>
+                    <button type="submit" className="btn-custom" name="submit">
+                      Submit Listing
+                    </button>
                   </Tab.Pane>
                 </Tab.Content>
               </form>
