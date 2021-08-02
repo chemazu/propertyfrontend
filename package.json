@@ -5,7 +5,6 @@
   "private": true,
   "main": "lib/index",
   "types": "lib/index",
-  "proxy": "http://localhost:5000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
