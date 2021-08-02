@@ -163,6 +163,7 @@ function Content(props) {
                       <div className="col-md-6 form-group">
                         <label>Property Name</label>
                         <input
+                          required
                           type="text"
                           className="form-control"
                           placeholder="Property Name"
@@ -174,6 +175,7 @@ function Content(props) {
                       <div className="col-md-6 form-group">
                         <label>Property Status</label>
                         <select
+                          required
                           className="form-control"
                           name="status"
                           value={status}
@@ -192,6 +194,7 @@ function Content(props) {
                       <div className="col-md-6">
                         <label>Property Type</label>
                         <select
+                          required
                           className="form-control"
                           name="type"
                           value={type}
@@ -211,6 +214,7 @@ function Content(props) {
                       <div className="col-md-6 form-group">
                         <label>Property Space (Sqft)</label>
                         <input
+                          required
                           type="text"
                           className="form-control"
                           placeholder="Property Space (Sqft)"
@@ -222,6 +226,7 @@ function Content(props) {
                       <div className="col-md-6 form-group">
                         <label>Location</label>
                         <input
+                          required
                           type="text"
                           className="form-control"
                           placeholder="Location"
@@ -234,6 +239,7 @@ function Content(props) {
                       <div className="col-md-6 form-group">
                         <label>Property Address</label>
                         <input
+                          required
                           type="text"
                           className="form-control"
                           placeholder="Property Address"
@@ -249,6 +255,7 @@ function Content(props) {
                             <span className="input-group-text">₦</span>
                           </div>
                           <input
+                            required
                             type="text"
                             className="form-control"
                             name="price"
@@ -261,6 +268,7 @@ function Content(props) {
                       <div className="col-md-6 form-group">
                         <label>Rooms</label>
                         <input
+                          required
                           type="text"
                           className="form-control"
                           placeholder="Number of Bathrooms"
@@ -272,6 +280,7 @@ function Content(props) {
                       <div className="col-md-4 form-group">
                         <label>Bathrooms</label>
                         <input
+                          required
                           type="text"
                           className="form-control"
                           placeholder="Number of bathrooms"
@@ -283,6 +292,7 @@ function Content(props) {
                       <div className="col-md-4 form-group">
                         <label>Beds</label>
                         <input
+                          required
                           type="text"
                           className="form-control"
                           placeholder="Number of bedrooms"
@@ -294,6 +304,7 @@ function Content(props) {
                       <div className="col-md-4 form-group">
                         <label>Toilets</label>
                         <input
+                          required
                           type="text"
                           className="form-control"
                           placeholder="Number of toilets"
@@ -320,6 +331,7 @@ function Content(props) {
                       <label>Property Thumbnail</label>
                       <div className="custom-file">
                         <input
+                          required
                           type="file"
                           className="custom-file-input"
                           id="propertyThumbnail"
@@ -336,7 +348,7 @@ function Content(props) {
                     <div className="form-group">
                       <label>Property Gallery</label>
                       <div {...getRootProps({ className: "dropzone" })}>
-                        <input {...getInputProps()} />
+                        <input required {...getInputProps()} />
                         <div className="dropzone-msg dz-message needsclick">
                           <i className="fas fa-cloud-upload-alt" />
                           <h5 className="dropzone-msg-title">
@@ -361,6 +373,7 @@ function Content(props) {
                           <div key={i} className="col-lg-4 col-md-6 col-sm-6">
                             <label className="acr-listing-feature">
                               <input
+                                required
                                 type="checkbox"
                                 name={item.title}
                                 value={item.id}
@@ -384,6 +397,7 @@ function Content(props) {
                       <div className="form-group">
                         <div className="custom-control custom-checkbox">
                           <input
+                            required
                             type="checkbox"
                             className="custom-control-input"
                             id="termsAndConditions"

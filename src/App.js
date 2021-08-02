@@ -19,6 +19,9 @@ const Faq = React.lazy(() => import("./components/pages/Faq"));
 const Pricing = React.lazy(() => import("./components/pages/Pricing"));
 const Contact = React.lazy(() => import("./components/pages/Contact"));
 const Comingsoon = React.lazy(() => import("./components/pages/Comingsoon"));
+const Confirmation = React.lazy(() =>
+  import("./components/pages/Confirmation")
+);
 const Error = React.lazy(() => import("./components/pages/Error"));
 const Login = React.lazy(() => import("./components/pages/Login"));
 const Register = React.lazy(() => import("./components/pages/Register"));
@@ -82,6 +85,8 @@ function App() {
           <Route path="/pricing" component={Pricing} />
           <Route path="/contact" component={Contact} />
           <Route path="/coming-soon" component={Comingsoon} />
+          <Route path="/confirmation" component={Confirmation} />
+
           <Route path="/error-404" component={Error} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />

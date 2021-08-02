@@ -49,8 +49,8 @@ class Content extends Component {
     // Logic for displaying items
     const indexOfLastitem = currentPage * itemsPerPage;
     const indexOfFirstitem = indexOfLastitem - itemsPerPage;
-    const currentitems =
-      this.props.listing.data || items.slice(indexOfFirstitem, indexOfLastitem);
+    const currentitems = items.slice(indexOfFirstitem, indexOfLastitem);
+
     const renderitems = currentitems.map((item, i) => {
       return (
         <div key={i} className="col-md-6">
@@ -58,11 +58,7 @@ class Content extends Component {
             <div className="listing-thumbnail">
               <Link to="/listing-details-v1/60d98fafff49602c48f50996">
                 <img
-                  src={
-                    process.env.REACT_APP_PUBLIC_URL +
-                    "/uploads/" +
-                    item.thumbnail
-                  }
+                  src={process.env.PUBLIC_URL + "/" + item.gridimg}
                   alt="listing"
                 />
               </Link>
@@ -77,13 +73,61 @@ class Content extends Component {
               </div>
             </div>
             <div className="listing-body">
+              <div className="listing-author">
+                <img
+                  src={process.env.PUBLIC_URL + "/" + item.authorimg}
+                  alt="author"
+                />
+                <div className="listing-author-body">
+                  <p>
+                    {" "}
+                    <Link to="#">{item.authorname}</Link>{" "}
+                  </p>
+                  <span className="listing-date">{item.postdate}</span>
+                </div>
+                <Dropdown className="options-dropdown">
+                  <Dropdown.Toggle as={NavLink}>
+                    <i className="fas fa-ellipsis-v" />
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu className="dropdown-menu-right">
+                    <ul>
+                      <li>
+                        {" "}
+                        <Link to="tel:+123456789">
+                          {" "}
+                          <i className="fas fa-phone" /> Call Agent
+                        </Link>{" "}
+                      </li>
+                      <li>
+                        {" "}
+                        <Link to="mailto:+123456789">
+                          {" "}
+                          <i className="fas fa-envelope" /> Send Message
+                        </Link>{" "}
+                      </li>
+                      <li>
+                        {" "}
+                        <Link to="/listing-details-v1/60d98fafff49602c48f50996">
+                          {" "}
+                          <i className="fas fa-bookmark" /> Book Tour
+                        </Link>{" "}
+                      </li>
+                    </ul>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
               <h5 className="listing-title">
-                <Link to={`/listing-details-v1/${item._id}`}>{item.title}</Link>
+                {" "}
+                <Link
+                  to="/listing-details-v1/60d98fafff49602c48f50996"
+                  title={item.title}
+                >
+                  {item.title}
+                </Link>{" "}
               </h5>
               <span className="listing-price">
-                {item.price}
                 {/* {new Intl.NumberFormat().format(item.price.toFixed(2))}${" "} */}
-                <p>{item.description}</p>{" "}
+                <span>/month</span>{" "}
               </span>
               <p className="listing-text">{item.text}</p>
               <div className="acr-listing-icons">
@@ -96,14 +140,16 @@ class Content extends Component {
                 <OverlayTrigger overlay={bathstip}>
                   <div className="acr-listing-icon">
                     <i className="flaticon-bathroom" />
-                    <span className="acr-listing-icon-value">{item.baths}</span>
+                    <span className="acr-listing-icon-value">
+                      {item.bathrooms}
+                    </span>
                   </div>
                 </OverlayTrigger>
                 <OverlayTrigger overlay={areatip}>
                   <div className="acr-listing-icon">
                     <i className="flaticon-ruler" />
                     <span className="acr-listing-icon-value">
-                      {new Intl.NumberFormat().format(item.area)} SQM
+                      {new Intl.NumberFormat().format(item.area)}
                     </span>
                   </div>
                 </OverlayTrigger>

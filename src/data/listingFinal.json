@@ -1,17 +1,17 @@
 [
   {
-    "id": "",
+    "_id": "60f4a0277ee58b2700870355",
     "title": "Detached bungalow for sale",
     "location": "test",
     "description": "Test",
     "status": "For Rent",
     "type": "House",
-    "area": "test",
+    "area": "400",
     "address": "test",
     "price": "test",
-    "beds": "test",
+    "beds": 4,
     "toilets": "trest",
-    "baths": "test",
+    "baths": 2,
     "parking": true,
     "furnished": true,
     "serviced": true,
@@ -19,10 +19,10 @@
     "images": [],
     "userId": "",
     "createDate": "",
-    "thumbnail": ""
+    "thumbnail": "firstthumb.jpg"
   },
   {
-    "id": "",
+    "_id": "60f4a0277ee58b2700870355",
     "title": "Detached Three Bedroom for sale",
     "location": "Oshodi",
     "description": "This is a 3bedroom bungalow all ensuite , pop celling good facilities well fenced round and gated",
@@ -38,9 +38,31 @@
     "furnished": true,
     "serviced": true,
     "rooms": 4,
-    "images": ["first", "second", "third", "fourth", "fifth"],
+    "images": ["first", "second", "third", "fourth"],
     "userId": "60e30cf25a69234ff0ea3669",
     "createdAt": "2021-06-30T07:17:34.524+00:00",
-    "thumbnail": "firstthumb"
+    "thumbnail": "firstthumb.jpg"
+  },
+  {
+    "_id": "60f63d24f9bf0d6322e10a60",
+    "title": "50 story Mansion in Ikeja",
+    "location": "Oshodi",
+    "description": "This is a 3bedroom bungalow all ensuite , pop celling good facilities well fenced round and gated",
+    "status": "sale",
+    "type": "House",
+    "area": 400,
+    "address": "20a,Street road, off Bustop Road, opposite landmark ikeja",
+    "price": " 8 Million",
+    "beds": 4,
+    "toilets": 5,
+    "baths": 6,
+    "parking": true,
+    "furnished": true,
+    "serviced": true,
+    "rooms": 4,
+    "images": ["first", "second", "third", "fourth"],
+    "userId": "60e30cf25a69234ff0ea3669",
+    "createdAt": "2021-06-30T07:17:34.524+00:00",
+    "thumbnail": "firstthumb.jpg"
   }
 ]

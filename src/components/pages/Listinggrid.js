@@ -8,7 +8,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 export default function Listinggrid() {
-  const [listing, setListing] = useState("0");
+  const [listing, setListing] = useState("");
   useEffect(() => {
     getListing();
   }, []);
