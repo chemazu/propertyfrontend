@@ -1,5 +1,5 @@
 {
-  "homepage": "http://chemazu.github.io/",
+  "homepage": "http://chemazu.github.io/propertyfrontend",
   "name": "acres",
   "version": "0.1.0",
   "private": true,
@@ -60,6 +60,6 @@
   "devDependencies": {
     "@types/leaflet": "^1.5.19",
     "dotenv": "^10.0.0",
-    "gh-pages": "^3.1.0"
+    "gh-pages": "^3.2.3"
   }
 }
